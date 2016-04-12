@@ -9,19 +9,26 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour {
-    public const string defaultPresetFileName = "test.csv";
-    public const string defaultPresentDirectory = "C:\\SpeedyDocs\\Unity3D Projects\\Painless VR\\";
-    public string presetFilePath;
+    internal const string defaultPresetFileName = "test.json";
+    internal string presetFilePath;
+    internal int sceneIndex;
+    //IMPORTANT This string holds all data from the JSON preset. All 
+    //other scenes must reference this field to deserializa their variables. 
+    internal static string json;
 
-    // Use this for initialization
+    //This small, nested "class" is only meant as a container for the 
+    //task variable (the desired scene index). By using this structure,
+    //the variable can be deserialized easily from the preset file. 
+    [Serializable]
+    internal class TaskVariable
+    {
+        public int task;
+    }
+
     void Start() {
         
-        PresetData.variables = new Dictionary<string, string>();
         presetFilePath = Directory.GetCurrentDirectory() + "\\"  + defaultPresetFileName;
-
         Debug.Log("Trying path: " + presetFilePath);
-
-        InputTracking.GetLocalPosition(VRNode.Head);
 
         //If the file doesn't exist in the default location,
         //an file opening dialog is created so the user can select a preset file
@@ -33,7 +40,7 @@ public class SceneLoader : MonoBehaviour {
 
         try
         {
-            ReadPreset();
+            FindSceneIndex();
         }
         catch (Exception e)
         {
@@ -43,30 +50,19 @@ public class SceneLoader : MonoBehaviour {
         LoadScene();
     }
 
-    // Update is called once per frame
-    void Update () {
-	    
-	}
 
-    private void ReadPreset()
+    private void FindSceneIndex()
     {
-        StreamReader stream = new StreamReader(File.OpenRead(presetFilePath));
-        PresetData.variables.Clear();
-        while (!stream.EndOfStream)
-        {
-            string line = stream.ReadLine();
-            string[] kVP = line.Split(',');
-            PresetData.variables.Add(kVP[0], kVP[1]);
-            Debug.Log(kVP);
-        }
-        stream.Close();
+        json = File.ReadAllText(presetFilePath);
+        TaskVariable taskVar = JsonUtility.FromJson<TaskVariable>(json);
+        sceneIndex = taskVar.task;
     }
 
     private void OpenPresetFileDialog()
     {
 
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "CSV Files|*.csv";
+        openFileDialog.Filter = "JSON Files|*.json";
         openFileDialog.Title = "Select a PainlessVR preset file";
 
         if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -82,30 +78,12 @@ public class SceneLoader : MonoBehaviour {
 
     private void LoadScene()
     {
-        //Checks to see if a properly formatted task variable has been added
-        if (!PresetData.variables.ContainsKey("task"))
-            InvalidSceneDialog();
-
-
-        int sceneIndex = 1;
-        try
-        {
-            sceneIndex = Int32.Parse(PresetData.variables["task"]); //Parses the task variable for a scene index
-        }
-        catch (FormatException e)
-        {
-            InvalidSceneDialog();
-        }
-
         //Checks to see if the scene (task) index is valid. It should always
         //be between 1 & 4, because the loading scene is 0, and there are 4 task scenes. 
         if (sceneIndex < 1 || sceneIndex > 4)
-        {
             InvalidSceneDialog();
-        }
-
+        
         SceneManager.LoadScene(sceneIndex);
-
     }
 
 
@@ -125,7 +103,7 @@ public class SceneLoader : MonoBehaviour {
         if (result1 == DialogResult.OK)
         {
             OpenPresetFileDialog();
-            ReadPreset();
+            FindSceneIndex();
             LoadScene();
         } else
         {

@@ -33,7 +33,7 @@ public class PlayerMGMT : MonoBehaviour {
         if (c.gameObject.tag == "StarPickup")
         {
             Destroy(c.gameObject);
-            Debug.Log("Cat");
+            Debug.Log("Pickup collected");
         }
     }
 }

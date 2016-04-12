@@ -5,10 +5,6 @@ using System;
 [Serializable]
 public class FreeFlyPresetModel : PresetModel
 {
-    public Color color;
 
-    public int enemyCount;
-
-    public string musicPath;
 
 }

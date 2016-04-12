@@ -6,29 +6,14 @@ using System.Windows.Forms;
 using System.IO;
 
 public class FreeFlyInitializer : MonoBehaviour, ISceneInitializer {
+    FreeFlyPresetModel presetModel;
 
-    public Color worldColor = Color.gray;
-
-    // Use this for initialization
     void Start()
     {
-        FreeFlyPresetModel presetModel = new FreeFlyPresetModel();
-        presetModel.color = Color.cyan;
-        presetModel.musicPath = "desktop/5thconcerto.mp3";
-        presetModel.enemyCount = 3;
-        
-        
-        string json = JsonUtility.ToJson(presetModel);
-
-        FreeFlyPresetModel newPresetModel = JsonUtility.FromJson<FreeFlyPresetModel>(json);
-
-        Debug.Log(json);
-        
         DeserializeVariables();
         SetVisuals();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -40,11 +25,9 @@ public class FreeFlyInitializer : MonoBehaviour, ISceneInitializer {
     {
         try
         {
-            string rawColor = PresetData.variables["color"];
-            worldColor = PresetData.ParseColor(rawColor);
-        } catch (Exception e)
+            presetModel = JsonUtility.FromJson<FreeFlyPresetModel>(SceneLoader.json);
+        } catch 
         {
-            MessageBox.Show("One or more provided variables are invalid for this task. Exception: " + e.Message + "\r\n Reverting to default values");
         }
     }
 
@@ -64,7 +47,7 @@ public class FreeFlyInitializer : MonoBehaviour, ISceneInitializer {
         GameObject[] cubes = GameObject.FindGameObjectsWithTag("Cube");
         for (int i = 0; i < cubes.Length; i++)
         {
-            cubes[i].gameObject.GetComponent<Renderer>().material.color = worldColor;
+            cubes[i].gameObject.GetComponent<Renderer>().material.color = presetModel.worldColor;
         }
     }
 
