@@ -20,10 +20,7 @@ public class SceneLoader : MonoBehaviour {
     //task variable (the desired scene index). By using this structure,
     //the variable can be deserialized easily from the preset file. 
     [Serializable]
-    internal class TaskVariable
-    {
-        public int task;
-    }
+    internal class TaskVariable { public int task; }
 
     void Start() {
         
@@ -54,6 +51,7 @@ public class SceneLoader : MonoBehaviour {
     private void FindSceneIndex()
     {
         json = File.ReadAllText(presetFilePath);
+        Debug.Log("JSON read: " + json);
         TaskVariable taskVar = JsonUtility.FromJson<TaskVariable>(json);
         sceneIndex = taskVar.task;
     }

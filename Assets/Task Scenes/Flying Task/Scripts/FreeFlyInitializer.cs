@@ -5,12 +5,12 @@ using PainlessVR;
 using System.Windows.Forms;
 using System.IO;
 
-public class FreeFlyInitializer : MonoBehaviour, ISceneInitializer {
-    FreeFlyPresetModel presetModel;
+public class FreeFlyInitializer : SceneInitializer {
+  
 
     void Start()
     {
-        DeserializeVariables();
+        presetModel = DeserializeVariables<FreeFlyPresetModel>();
         SetVisuals();
     }
 
@@ -21,15 +21,15 @@ public class FreeFlyInitializer : MonoBehaviour, ISceneInitializer {
 
     
 
-    public void DeserializeVariables()
-    {
-        try
-        {
-            presetModel = JsonUtility.FromJson<FreeFlyPresetModel>(SceneLoader.json);
-        } catch 
-        {
-        }
-    }
+    //public void DeserializeVariables()
+    //{
+    //    try
+    //    {
+    //        presetModel = JsonUtility.FromJson<FreeFlyPresetModel>(SceneLoader.json);
+    //    } catch 
+    //    {
+    //    }
+    //}
 
 
     public void SetAudio()
