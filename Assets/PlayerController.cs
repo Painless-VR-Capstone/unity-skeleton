@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     internal bool isGrounded;
@@ -21,6 +22,14 @@ public class PlayerController : MonoBehaviour {
         hasPeaked = true;
         isGrounded = false;
 	}
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            SceneManager.LoadScene(3);
+        }
+    }
 	
 	void FixedUpdate () {
         if (Input.GetButtonDown("Jump") && isGrounded == true)
@@ -37,7 +46,8 @@ public class PlayerController : MonoBehaviour {
 
         //if (Input.GetAxis("Horizontal") > 0)
         //{
-        transform.Rotate(new Vector3(0f, Input.GetAxis("Horizontal") * rotateSpeed, 0f));
+        if (isGrounded)
+            transform.Rotate(new Vector3(0f, Input.GetAxis("Horizontal") * rotateSpeed, 0f));
         //}
     }
 
