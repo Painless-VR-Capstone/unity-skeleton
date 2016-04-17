@@ -14,7 +14,12 @@ public abstract class PresetModel {
     // TODO Determine all the variables that can be shared between scenes
     public Color worldColor;
     public PlayerObject playerObject;
-    public string musicPath;
-    public double musicTempo; 
+    public string musicPath; //Should perhaps be changed to musicName, since the path will be constant (\Resources\)
+    public double musicTempo;
+
+    public double hue;
+    public double contrast;
+    public double saturation;
+
 
 }
