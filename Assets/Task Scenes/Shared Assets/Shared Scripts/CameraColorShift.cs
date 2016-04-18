@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraColorShift : MonoBehaviour {
     [Range(0,1)]
-    public float brightness = .5f, contrast = .5f, hue = .5f;
+    public float brightness = .5f, contrast = .5f, hue = .5f, saturation = .5f;
     public ColorSuite colorSuite;
 
 	// Use this for initialization
@@ -13,10 +13,11 @@ public class CameraColorShift : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float difference = 1 - (contrast * 2);
-        colorSuite.rgbCurve = getCurve(0, 1, 0 + difference * brightness + (brightness - .5f), 1 - difference + (brightness - .5f));
-        colorSuite.redCurve = getCurve(0, 1, 0, 1 + (hue * 5 - 2.5f) / 10);
-	}
+        colorSuite.rgbCurve = getCurve(contrast - .5f, -contrast + 1.5f, brightness - contrast, 1 + brightness - contrast);
+        colorSuite.redCurve = getCurve(0, 1, 0, 1 + (hue * 2 - 1f));
+        colorSuite.blueCurve = getCurve(0, 1, 0, 1 - (hue * 2 - 1f));
+        colorSuite.saturation = saturation * 2;
+    }
 
     AnimationCurve getCurve(float startTime, float EndTime, float startValue, float EndValue)
     {
