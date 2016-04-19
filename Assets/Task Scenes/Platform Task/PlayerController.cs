@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpGravity;
     public float jumpHeight;
     public float rotateSpeed;
+    public bool canTurnInAir;
 
     internal float initialHeight;
 
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 
         //if (Input.GetAxis("Horizontal") > 0)
         //{
-        if (isGrounded)
+        if (canTurnInAir || isGrounded)
             transform.Rotate(new Vector3(0f, Input.GetAxis("Horizontal") * rotateSpeed, 0f));
         //}
     }
