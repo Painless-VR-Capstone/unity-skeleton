@@ -5,6 +5,7 @@ public class ObjectiveFlyInitializer : SceneInitializer {
 
 	// Use this for initialization
 	void Start () {
+
         presetModel = DeserializeVariables<ObjectiveFlyPresetModel>();
         CameraColorShift.brightness = presetModel.brightness;
         CameraColorShift.contrast = presetModel.contrast;
