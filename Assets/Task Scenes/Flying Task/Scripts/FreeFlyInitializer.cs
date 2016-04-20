@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using UnityEngine;
+=======
+﻿ using UnityEngine;
+>>>>>>> origin/fly-scene
 using System.Collections;
 using System;
 using PainlessVR;
