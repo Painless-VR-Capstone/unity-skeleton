@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         int dist = (int)Vector3.Distance(player.transform.position, goal.transform.position);
-        minDistToGoalText.text = "(Best: " + Stats.minDistToGoal + ")";
+        minDistToGoalText.text = "(Best: " + Stats.minDistToGoal + "m)";
 
         //if (Stats.minDistToGoal > dist)
         //{
@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour {
 
         if (Stats.minDistToGoal > dist)
         {
-            minDistToGoalText.text = "(Best: " + dist + ")";
+            minDistToGoalText.text = "(Best: " + dist + "m)";
             Stats.minDistToGoal = dist;
         }
 	}
