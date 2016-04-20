@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraColorShift : MonoBehaviour {
     [Range(0,1)]
-    public float brightness = .5f, contrast = .5f, hue = .5f, saturation = .5f;
+    public static float brightness = .5f, contrast = .5f, hue = .5f, saturation = .5f;
     public ColorSuite colorSuite;
 
 	// Use this for initialization

@@ -17,9 +17,8 @@ public abstract class PresetModel {
     public string musicPath; //Should perhaps be changed to musicName, since the path will be constant (\Resources\)
     public double musicTempo;
 
-    public double hue;
-    public double contrast;
-    public double saturation;
+    public float hue, contrast, saturation, brightness;
+
 
 
 }

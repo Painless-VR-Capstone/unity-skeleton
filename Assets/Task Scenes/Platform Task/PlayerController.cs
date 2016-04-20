@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") || transform.position.y < -18)
         {
             SceneManager.LoadScene(3);
         }
