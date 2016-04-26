@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveFreeFly : MonoBehaviour {
     float xRotation = 0, yRotation = 0, rotationSpeed = 200;
-    public float flySpeed;
+    public float passiveSpeed, activeSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -12,10 +12,12 @@ public class MoveFreeFly : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position += transform.forward * flySpeed;
         if (Input.GetKey(KeyCode.Space))
         {
-            transform.position += transform.forward * flySpeed;
+            transform.position += transform.forward * activeSpeed;
+        } else
+        {
+            transform.position += transform.forward * passiveSpeed;
         }
     }
 
