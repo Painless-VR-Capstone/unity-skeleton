@@ -15,7 +15,6 @@ public class PlatformFall : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Platform hit wall");
         if (collider.transform.tag == "Platform")
         {
             Rigidbody rBody = collider.gameObject.GetComponent<Rigidbody>();

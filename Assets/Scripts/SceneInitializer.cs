@@ -13,9 +13,11 @@ public abstract class SceneInitializer : MonoBehaviour {
     //allows it to use any PresetModel implementation. 
     internal T DeserializeVariables<T>()
     {
-        try {
+        try
+        {
             return JsonUtility.FromJson<T>(SceneLoader.json);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log("Exception while deserializing JSON: \r\n" + e.Message);
         }

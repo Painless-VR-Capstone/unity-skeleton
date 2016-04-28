@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
     public Text distToGoalText;
     public Text minDistToGoalText;
+    private Color textStartColor;
+    private float colorFlashTime;
 
     public GameObject player;
     public GameObject goal;
@@ -12,7 +14,9 @@ public class UIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         int dist = (int)Vector3.Distance(player.transform.position, goal.transform.position);
-        minDistToGoalText.text = "(Best: " + Stats.minDistToGoal + "m)";
+        minDistToGoalText.text = Stats.minDistToGoal + "m";
+        minDistToGoalText.color = Color.magenta;
+        textStartColor = distToGoalText.color;
 
         //if (Stats.minDistToGoal > dist)
         //{
@@ -25,12 +29,18 @@ public class UIController : MonoBehaviour {
     void Update () {
         int dist = (int)Vector3.Distance(player.transform.position, goal.transform.position);
 
-        distToGoalText.text = dist + "m to FINISH";
+        distToGoalText.text = dist + "m";
 
         if (Stats.minDistToGoal > dist)
         {
-            minDistToGoalText.text = "(Best: " + dist + "m)";
+            colorFlashTime = Time.time;
+            distToGoalText.color = Color.magenta;
+            minDistToGoalText.text = dist + "m";
             Stats.minDistToGoal = dist;
+        } else if (colorFlashTime + .1f < Time.time)
+        {
+            
+            distToGoalText.color = textStartColor;
         }
 	}
 }

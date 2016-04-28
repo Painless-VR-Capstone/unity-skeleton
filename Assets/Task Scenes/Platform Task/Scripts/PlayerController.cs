@@ -26,28 +26,39 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit") || transform.position.y < -18)
-        {
-            SceneManager.LoadScene(3);
-        }
-    }
-	
-	void FixedUpdate () {
-        if (Input.GetButtonDown("Jump") && isGrounded == true)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             hasPeaked = false;
             isGrounded = false;
+            Debug.Log("Jumping...");
             initialHeight = transform.position.y;
             Jump();
-        } 
-        else if (isGrounded == false)
+        }
+        else if (!isGrounded && Input.GetButtonDown("Jump"))
         {
-            Jump();
+            hasPeaked = true;
+            //Jump();
+        }
+        else if (!isGrounded)
+        {
+           // Jump();
         }
 
-        //if (Input.GetAxis("Horizontal") > 0)
-        //{
-        if (canTurnInAir || isGrounded)
+        if (Input.GetButtonDown("Submit") || transform.position.y < -18)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+
+    }
+	
+	void FixedUpdate () {
+        if (!isGrounded)
+            Jump();
+
+            //if (Input.GetAxis("Horizontal") > 0)
+            //{
+            if (canTurnInAir || isGrounded)
             transform.Rotate(new Vector3(0f, Input.GetAxis("Horizontal") * rotateSpeed, 0f));
         //}
     }
