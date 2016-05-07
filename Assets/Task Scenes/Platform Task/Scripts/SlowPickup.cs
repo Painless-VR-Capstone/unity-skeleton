@@ -15,11 +15,14 @@ public class SlowPickup : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Slow pickup");
-        PlatformMovement.SlowDown();
-        //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
-        //newParticles.GetComponent<ParticleSystem>().Play();
-        Destroy(this.gameObject);
-        //Destroy(newParticles);
+        if (collider.tag == "Player")
+        {
+            Debug.Log("Slow pickup");
+            PlatformMovement.SlowDown();
+            //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
+            //newParticles.GetComponent<ParticleSystem>().Play();
+            Destroy(this.gameObject);
+            //Destroy(newParticles);
+        }
     }
 }

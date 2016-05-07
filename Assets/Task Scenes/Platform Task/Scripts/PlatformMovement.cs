@@ -12,11 +12,6 @@ public class PlatformMovement : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-	
-	}
 
     public static void SlowDown()
     {
@@ -27,9 +22,9 @@ public class PlatformMovement : MonoBehaviour {
     {
         if (timeStamp != 0 && timeStamp + slowDownDuration > Time.time)
         {
-            Debug.Log("Slowing down");
             transform.Translate(Vector3.left * Time.deltaTime * (speed - slowDownIntensity));
-        } else
+        }
+        else
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
 
