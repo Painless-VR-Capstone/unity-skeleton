@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour {
 
     public static float platSpeed;
     public float jumpSpeedRatio;
-
+    [Range(-50, 20)]
+    public float restartHeight = -35f;
 
     // Use this for initialization
     void Start () {
@@ -83,9 +84,9 @@ public class PlayerController : MonoBehaviour {
             //}
         }
 
-        //Restart game if player falls or hits the reset button
-        if (Input.GetButtonDown("Submit") || transform.position.y < -28)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //Restart game if player falls
+        if (transform.position.y < restartHeight)
+            GameManager.RestartGame();
     }
 	
 	void FixedUpdate () {

@@ -54,19 +54,19 @@ public class OncomingPlatforms : MonoBehaviour {
             if (platZ < player.transform.position.z + 3 && platZ > player.transform.position.z - 3)
 
             {
-                Debug.Log("Front platform added");
+                //Debug.Log("Front platform added");
 
                 sortedPlats[1] = plat;
             }
             else if (platZ < player.transform.position.z - 3)
             {
-                Debug.Log("Right platform added");
+                //Debug.Log("Right platform added");
 
                 sortedPlats[2] = plat;
             }
             else
             {
-                Debug.Log("Left platform added");
+                //Debug.Log("Left platform added");
 
                 sortedPlats[0] = plat;
             }

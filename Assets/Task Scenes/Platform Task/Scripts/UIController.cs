@@ -13,7 +13,8 @@ public class UIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        int dist = (int)Vector3.Distance(player.transform.position, goal.transform.position);
+        Debug.Log("UIController START");
+        int dist = (int)Vector3.Distance(GameManager.player.transform.position, goal.transform.position);
         minDistToGoalText.text = Stats.minDistToGoal + "m";
         minDistToGoalText.color = Color.magenta;
         textStartColor = distToGoalText.color;
@@ -27,20 +28,24 @@ public class UIController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        int dist = (int)Vector3.Distance(player.transform.position, goal.transform.position);
-
-        distToGoalText.text = dist + "m";
-
-        if (Stats.minDistToGoal > dist)
+        if (GameManager.playerIsAlive)
         {
-            colorFlashTime = Time.time;
-            distToGoalText.color = Color.magenta;
-            minDistToGoalText.text = dist + "m";
-            Stats.minDistToGoal = dist;
-        } else if (colorFlashTime + .1f < Time.time)
-        {
-            
-            distToGoalText.color = textStartColor;
+            int dist = (int)Vector3.Distance(GameManager.player.transform.position, goal.transform.position);
+
+            distToGoalText.text = dist + "m";
+
+            if (Stats.minDistToGoal > dist)
+            {
+                colorFlashTime = Time.time;
+                distToGoalText.color = Color.magenta;
+                minDistToGoalText.text = dist + "m";
+                Stats.minDistToGoal = dist;
+            }
+            else if (colorFlashTime + .1f < Time.time)
+            {
+
+                distToGoalText.color = textStartColor;
+            }
         }
 	}
 }
