@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.transform.tag == "Platform")
         {
-            Debug.Log("Player is grounded");
+           //Debug.Log("Player is grounded");
             OncomingPlatforms.SortPlats();
             isGrounded = true;
         } 

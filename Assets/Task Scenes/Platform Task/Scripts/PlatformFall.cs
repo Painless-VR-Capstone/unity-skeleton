@@ -18,16 +18,23 @@ public class PlatformFall : MonoBehaviour {
 
     void FixedUpdate()
     {
-        
+        int index = 0;
         foreach (GameObject fallingGO in fallingGOs)
         {
-            fallingGO.transform.Translate(Vector3.down * Time.deltaTime * fallSpeed);
+            if (fallingGO != null)
+            {
+                fallingGO.transform.Translate(Vector3.down * Time.deltaTime * fallSpeed);
+            }
+            else
+            {
+                fallingGOs.Remove(fallingGO);
+            }
+            
         }
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(collider.tag);
         if (collider.transform.tag == "Platform" || collider.transform.tag.Contains("Pickup"))
         {
 

@@ -10,7 +10,7 @@ public class SlowPickup : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
     void OnTriggerEnter(Collider collider)
@@ -18,6 +18,7 @@ public class SlowPickup : MonoBehaviour {
         if (collider.tag == "Player")
         {
             Debug.Log("Slow pickup");
+            Instantiate(Resources.Load("Platformer/SlowPickupParticle") as GameObject, this.transform.position, Quaternion.identity);
             PlatformMovement.SlowDown();
             //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
             //newParticles.GetComponent<ParticleSystem>().Play();
