@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 81235b55a0802ce459dac7e1445e4aa2
-timeCreated: 1461124588
+timeCreated: 1462772203
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - humanPlayer: {fileID: 160346, guid: 5207ba34c9e4d914ba8dbcebf9844acc, type: 2}
+  - orbPlayer: {fileID: 148092, guid: 20dc74d599b98604babcf21bd9b7b568, type: 2}
+  - robotPlayer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

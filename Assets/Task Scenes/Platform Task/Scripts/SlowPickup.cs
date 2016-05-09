@@ -22,6 +22,7 @@ public class SlowPickup : MonoBehaviour {
             PlatformMovement.SlowDown();
             //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
             //newParticles.GetComponent<ParticleSystem>().Play();
+            PlatformFall.fallingGOs.Remove(this.gameObject);
             Destroy(this.gameObject);
             //Destroy(newParticles);
         }

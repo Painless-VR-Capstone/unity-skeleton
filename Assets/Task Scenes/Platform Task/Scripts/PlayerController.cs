@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     internal float initialHeight;
 
     public static float platSpeed;
-    public float jumpSpeedRatio;
+    public float decreaseJumpBySpeed;
     [Range(-50, 20)]
     public float restartHeight = -35f;
 
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Debug.Log("Jumping into space");
                 targetObj = null;
-                targetPos = new Vector3(transform.position.x + (18f - platSpeed * jumpSpeedRatio),
+                targetPos = new Vector3(transform.position.x + (18f - platSpeed * decreaseJumpBySpeed),
                     transform.position.y,
                     transform.position.z + (5 - (5 * platformIndex)));
             }

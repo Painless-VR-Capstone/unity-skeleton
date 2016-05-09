@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class PlatformFall : MonoBehaviour {
-    List<GameObject> fallingGOs = new List<GameObject>();
+    internal static List<GameObject> fallingGOs = new List<GameObject>();
     public float fallSpeed;
 
 
@@ -27,7 +27,7 @@ public class PlatformFall : MonoBehaviour {
             }
             else
             {
-                fallingGOs.Remove(fallingGO);
+                //fallingGOs.Remove(fallingGO);
             }
             
         }
