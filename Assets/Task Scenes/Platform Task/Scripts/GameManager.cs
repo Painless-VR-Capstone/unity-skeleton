@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public static PlatformPresetModel presetModel;
     void Awake()
     {
-        Init();
+        //Init();
     }
 
     // Use this for initialization

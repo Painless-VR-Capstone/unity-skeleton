@@ -9,10 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class SteamVR_GameView : MonoBehaviour
 {
-<<<<<<< HEAD
-=======
 #if (UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0) // DEPRECATED in Unity 5.4+
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public float scale = 1.5f;
 	public bool drawOverlay = true;
 
@@ -82,9 +79,6 @@ public class SteamVR_GameView : MonoBehaviour
 			GL.PopMatrix();
 		}
 	}
-<<<<<<< HEAD
-=======
 #endif
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 

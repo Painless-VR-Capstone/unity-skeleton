@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-{"task":1,"worldColor":{"r":0.0,"g":0.3,"b":0.2,"a":0.7},"saturation":0.7,"brightness":0.4,"hue":0.3,"contrast":0.3,"musicPath":"desktop/5thconcerto.mp3", "playerObject":0, "jumpSpeed":0.5}
-=======
-{"task":2,"worldColor":{"r":0.0,"g":0.3,"b":0.2,"a":0.7},"saturation":0.7,"brightness":0.4,"hue":0.3,"contrast":0.3,"musicPath":"desktop/5thconcerto.mp3", "playerObject":0, "jumpSpeed":0.5}
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
+
+{"task":2,"worldColor":{"r":0.0,"g":0.3,"b":0.2,"a":0.7},"saturation":0.7,"brightness":0.7,"hue":0.7,"contrast":0.8,"musicPath":"desktop/5thconcerto.mp3", "playerObject":2, "jumpSpeed":0.5}

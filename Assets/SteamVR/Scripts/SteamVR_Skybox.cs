@@ -12,8 +12,6 @@ public class SteamVR_Skybox : MonoBehaviour
 	// Note: Unity's Left and Right Skybox shader variables are switched.
 	public Texture front, back, left, right, top, bottom;
 
-<<<<<<< HEAD
-=======
 	public enum CellSize
 	{
 		x1024, x64, x32, x16, x8
@@ -22,7 +20,6 @@ public class SteamVR_Skybox : MonoBehaviour
 
 	public float StereoIpdMm = 64.0f;
 
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public void SetTextureByIndex(int i, Texture t)
 	{
 		switch (i)

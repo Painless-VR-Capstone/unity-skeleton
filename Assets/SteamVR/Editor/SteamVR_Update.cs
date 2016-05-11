@@ -12,11 +12,7 @@ using System.Text.RegularExpressions;
 [InitializeOnLoad]
 public class SteamVR_Update : EditorWindow
 {
-<<<<<<< HEAD
-	const string currentVersion = "1.0.8";
-=======
 	const string currentVersion = "1.0.9";
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	const string versionUrl = "http://media.steampowered.com/apps/steamvr/unitypluginversion.txt";
 	const string notesUrl = "http://media.steampowered.com/apps/steamvr/unityplugin-v{0}.txt";
 	const string pluginUrl = "http://u3d.as/content/valve-corporation/steam-vr-plugin";

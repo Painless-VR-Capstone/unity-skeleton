@@ -8,12 +8,9 @@ using System.Windows.Forms;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class SceneLoader : MonoBehaviour {
-<<<<<<< HEAD
-    internal const string defaultPresetFileName = "test.json";
-=======
+public class SceneLoader : MonoBehaviour
+{
     internal const string defaultPresetFileName = "preset.json";
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
     internal string presetFilePath;
     internal int sceneIndex;
     //IMPORTANT This string holds all data from the JSON preset. All 
@@ -26,9 +23,10 @@ public class SceneLoader : MonoBehaviour {
     [Serializable]
     internal class TaskVariable { public int task; }
 
-    void Start() {
-        
-        presetFilePath = Directory.GetCurrentDirectory() + "\\"  + defaultPresetFileName;
+    void Start()
+    {
+
+        presetFilePath = Directory.GetCurrentDirectory() + "\\" + defaultPresetFileName;
         Debug.Log("Trying path: " + presetFilePath);
 
         //If the file doesn't exist in the default location,
@@ -37,7 +35,7 @@ public class SceneLoader : MonoBehaviour {
         {
             Debug.Log("Couldn't find a preset file with default name");
             OpenPresetFileDialog();
-        } 
+        }
 
         try
         {
@@ -84,7 +82,7 @@ public class SceneLoader : MonoBehaviour {
         //be between 1 & 4, because the loading scene is 0, and there are 4 task scenes. 
         if (sceneIndex < 1 || sceneIndex > 4)
             InvalidSceneDialog();
-        
+
         SceneManager.LoadScene(sceneIndex);
     }
 
@@ -107,7 +105,8 @@ public class SceneLoader : MonoBehaviour {
             OpenPresetFileDialog();
             FindSceneIndex();
             LoadScene();
-        } else
+        }
+        else
         {
             TerminateApp();
         }

@@ -343,14 +343,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 			else
 			{
 				var workingDirectory = Directory.GetCurrentDirectory();
-<<<<<<< HEAD
-				Debug.Log("working directory: " + workingDirectory);
-				Debug.Log("path: " + externalAppPath);
-				Debug.Log("args: " + externalAppArgs);
-				var error = applications.LaunchInternalProcess(externalAppPath, externalAppArgs, workingDirectory);
-				Debug.Log("LaunchInternalProcessError: " + error);
-				Application.Quit();
-=======
 				var fullPath = Path.Combine( workingDirectory, externalAppPath );
 				Debug.Log("LaunchingInternalProcess");
 				Debug.Log("ExternalAppPath = " + externalAppPath);
@@ -364,7 +356,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 #else
 				Process.GetCurrentProcess().Kill();
 #endif
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 			}
 		}
 		else
@@ -373,10 +364,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 			var mode = loadAdditive ? UnityEngine.SceneManagement.LoadSceneMode.Additive : UnityEngine.SceneManagement.LoadSceneMode.Single;
 			if (loadAsync)
 			{
-<<<<<<< HEAD
-				async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(levelName, mode);
-				yield return async;
-=======
 				Application.backgroundLoadingPriority = ThreadPriority.Low;
 				async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(levelName, mode);
 
@@ -386,7 +373,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 				{
 					yield return null;
 				}
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 			}
 			else
 			{
@@ -396,9 +382,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 			if (loadAsync)
 			{
 				async = loadAdditive ? Application.LoadLevelAdditiveAsync(levelName) : Application.LoadLevelAsync(levelName);
-<<<<<<< HEAD
-				yield return async;
-=======
 
 				// Performing this in a while loop instead seems to help smooth things out.
 				//yield return async;
@@ -406,7 +389,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 				{
 					yield return null;
 				}
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 			}
 			else if (loadAdditive)
 			{
@@ -419,10 +401,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 #endif
 		}
 
-<<<<<<< HEAD
-		System.GC.Collect();
-
-=======
 		yield return null;
 
 		System.GC.Collect();
@@ -431,7 +409,6 @@ public class SteamVR_LoadLevel : MonoBehaviour
 
 		Shader.WarmupAllShaders();
 
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 		// Optionally wait a short period of time after loading everything back in, but before we start rendering again
 		// in order to give everything a change to settle down to avoid any hitching at the start of the new level.
 		yield return new WaitForSeconds(postLoadSettleTime);

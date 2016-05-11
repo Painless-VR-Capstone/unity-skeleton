@@ -3,7 +3,6 @@ Dictates how player's hitbox handles various collisions.
 */
 using UnityEngine;
 using UnityEngine.SceneManagement;
-<<<<<<< HEAD
 using UnityEngine.UI;
 using System.Collections;
 
@@ -25,17 +24,6 @@ public class ColliderScript : MonoBehaviour
         }
 
     }
-=======
-using System.Collections;
-
-public class ColliderScript : MonoBehaviour {
-    public GameObject playerCamera;
-	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
     void OnCollisionEnter(Collision col)
     {
@@ -45,7 +33,6 @@ public class ColliderScript : MonoBehaviour {
         }
         if (col.gameObject.name.Contains("Objective"))
         {
-<<<<<<< HEAD
             Destroy(col.gameObject);
             GameObject go = Instantiate(Resources.Load("FlyObjectives/particleEmit") as GameObject); ;
             go.transform.position = col.transform.position;
@@ -60,13 +47,4 @@ public class ColliderScript : MonoBehaviour {
         score += updateBy;
         scoreText.text = "" + score;
     }
-=======
-            GameObject go = Instantiate(Resources.Load("FlyObjectives/particleEmit") as GameObject); ;
-            go.transform.position = col.transform.position;
-            go.transform.rotation = transform.rotation;
-            Destroy(col.gameObject);
-            transform.position += transform.forward * -1;
-        }
-    }
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }

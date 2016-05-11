@@ -21,15 +21,11 @@ public class SteamVR_SkyboxEditor : Editor
 		"in the compositor (e.g. when loading levels).  Add a Camera component to this " +
 		"object to override default settings like which layers to render.  Additionally, " +
 		"by specifying your own targetTexture, you can control the size of the textures " +
-<<<<<<< HEAD
-		"and other properties like antialiasing.  Don't forget to disable the camera.";
-=======
 		"and other properties like antialiasing.  Don't forget to disable the camera.\n\n" +
 		"For stereo screenshots, a panorama is render for each eye using the specified " +
 		"ipd (in millimeters) broken up into segments cellSize pixels square to optimize " +
 		"generation.\n(32x32 takes about 10 seconds depending on scene complexity, 16x16 " +
 		"takes around a minute, while will 8x8 take several minutes.)";
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 	public override void OnInspectorGUI()
 	{
@@ -63,13 +59,8 @@ public class SteamVR_SkyboxEditor : Editor
 			{
 #if !(UNITY_5_2)
 				var targetScene = target.gameObject.scene;
-<<<<<<< HEAD
-                var sceneName = Path.GetFileNameWithoutExtension(targetScene.name);
-				var scenePath = Path.GetDirectoryName(targetScene.name);
-=======
                 var sceneName = Path.GetFileNameWithoutExtension(targetScene.path);
 				var scenePath = Path.GetDirectoryName(targetScene.path);
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 				var assetPath = scenePath + "/" + sceneName;
 				if (!AssetDatabase.IsValidFolder(assetPath))
 				{
@@ -136,27 +127,17 @@ public class SteamVR_SkyboxEditor : Editor
 			{
 #if !(UNITY_5_2)
 				var targetScene = target.gameObject.scene;
-<<<<<<< HEAD
-				var sceneName = Path.GetFileNameWithoutExtension(targetScene.name);
-				var scenePath = Path.GetDirectoryName(targetScene.name);
-=======
 				var sceneName = Path.GetFileNameWithoutExtension(targetScene.path);
 				var scenePath = Path.GetDirectoryName(targetScene.path);
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 				var assetPath = scenePath + "/" + sceneName;
 #endif
 				for (int i = 0; i < directions.Length; i++)
 				{
 					var assetName = string.Format(nameFormat, assetPath, target.name, i);
 					var importer = AssetImporter.GetAtPath(assetName) as TextureImporter;
-<<<<<<< HEAD
-					importer.textureFormat = TextureImporterFormat.ARGB32;
-					importer.wrapMode = TextureWrapMode.Clamp;
-=======
 					importer.textureFormat = TextureImporterFormat.RGB24;
 					importer.wrapMode = TextureWrapMode.Clamp;
 					importer.mipmapEnabled = false;
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 					importer.SaveAndReimport();
 
 					var texture = AssetDatabase.LoadAssetAtPath<Texture>(assetName);
@@ -164,8 +145,6 @@ public class SteamVR_SkyboxEditor : Editor
 				}
 			}
 		}
-<<<<<<< HEAD
-=======
 		else if (GUILayout.Button("Take stereo snapshot"))
 		{
 			const int width = 4096;
@@ -397,7 +376,6 @@ public class SteamVR_SkyboxEditor : Editor
 				}
 			}
 		}
->>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 #endif
 	}
 }
