@@ -9,8 +9,27 @@ PluginImporter:
   isPreloaded: 0
   platformData:
     Any:
+<<<<<<< HEAD
       enabled: 1
       settings: {}
+=======
+      enabled: 0
+      settings: {}
+    Editor:
+      enabled: 1
+      settings:
+        CPU: x86_64
+        DefaultValueInitialized: true
+        OS: Windows
+    Win:
+      enabled: 1
+      settings:
+        CPU: None
+    Win64:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
   userData: 
   assetBundleName: 
   assetBundleVariant: 

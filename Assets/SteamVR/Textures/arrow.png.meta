@@ -1,13 +1,20 @@
 fileFormatVersion: 2
 guid: 2db89a771043d7b4eb9d26622f6b97c7
+<<<<<<< HEAD
 timeCreated: 1462837934
 licenseType: Free
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
+<<<<<<< HEAD
     enableMipMap: 1
+=======
+    enableMipMap: 0
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
     linearTexture: 1
     correctGamma: 0
     fadeOut: 0
@@ -16,8 +23,13 @@ TextureImporter:
     mipMapFadeDistanceEnd: 3
   bumpmap:
     convertToNormalMap: 0
+<<<<<<< HEAD
     externalNormalMap: 1
     heightScale: 0.25
+=======
+    externalNormalMap: 0
+    heightScale: .25
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -33,15 +45,23 @@ TextureImporter:
     aniso: 1
     mipBias: -1
     wrapMode: 1
+<<<<<<< HEAD
   nPOTScale: 1
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
+=======
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
   spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
+<<<<<<< HEAD
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
@@ -55,3 +75,16 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 2
+  buildTargetSettings: []
+  spriteSheet:
+    sprites: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb

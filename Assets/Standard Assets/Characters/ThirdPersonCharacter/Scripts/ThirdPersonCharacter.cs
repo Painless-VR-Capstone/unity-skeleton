@@ -213,6 +213,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = hitInfo.normal;
 				m_IsGrounded = true;
 				m_Animator.applyRootMotion = true;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 			}
 			else
 			{

@@ -27,6 +27,12 @@ public class SteamVR_RenderModel : MonoBehaviour
 	// Update transforms of components at runtime to reflect user action.
 	public bool updateDynamically = true;
 
+<<<<<<< HEAD
+=======
+	// Additional controller settings for showing scrollwheel, etc.
+	public RenderModel_ControllerMode_State_t controllerModeState;
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	// Name of the sub-object which represents the "local" coordinate space for each component.
 	public const string k_localTransformName = "attach";
 
@@ -91,6 +97,18 @@ public class SteamVR_RenderModel : MonoBehaviour
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	private void OnModelSkinSettingsHaveChanged(params object[] args)
+	{
+		if (!string.IsNullOrEmpty(renderModelName))
+		{
+			renderModelName = "";
+			UpdateModel();
+		}
+	}
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	private void OnHideRenderModels(params object[] args)
 	{
 		bool hidden = (bool)args[0];
@@ -112,10 +130,13 @@ public class SteamVR_RenderModel : MonoBehaviour
 		{
 			UpdateModel();
 		}
+<<<<<<< HEAD
 		else
 		{
 			StripMesh(gameObject);
 		}
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	}
 
 	public void UpdateModel()
@@ -378,6 +399,7 @@ public class SteamVR_RenderModel : MonoBehaviour
 			{
 				var diffuseTexture = (RenderModel_TextureMap_t)Marshal.PtrToStructure(pDiffuseTexture, typeof(RenderModel_TextureMap_t));
 				var texture = new Texture2D(diffuseTexture.unWidth, diffuseTexture.unHeight, TextureFormat.ARGB32, false);
+<<<<<<< HEAD
 				if (SteamVR.instance.graphicsAPI == EGraphicsAPIConvention.API_DirectX)
 				{
 					texture.Apply();
@@ -392,6 +414,9 @@ public class SteamVR_RenderModel : MonoBehaviour
 					}
 				}
 				else
+=======
+				if (SystemInfo.graphicsDeviceVersion.StartsWith("OpenGL"))
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 				{
 					var textureMapData = new byte[diffuseTexture.unWidth * diffuseTexture.unHeight * 4]; // RGBA
 					Marshal.Copy(diffuseTexture.rubTextureMapData, textureMapData, 0, textureMapData.Length);
@@ -413,6 +438,22 @@ public class SteamVR_RenderModel : MonoBehaviour
 					texture.SetPixels32(colors);
 					texture.Apply();
 				}
+<<<<<<< HEAD
+=======
+				else
+				{
+					texture.Apply();
+
+					while (true)
+					{
+						error = renderModels.LoadIntoTextureD3D11_Async(renderModel.diffuseTextureId, texture.GetNativeTexturePtr());
+						if (error != EVRRenderModelError.Loading)
+							break;
+
+						System.Threading.Thread.Sleep(1);
+					}
+				}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 				material = new Material(shader != null ? shader : Shader.Find("Standard"));
 				material.mainTexture = texture;
@@ -584,6 +625,10 @@ public class SteamVR_RenderModel : MonoBehaviour
 
 		SteamVR_Utils.Event.Listen("device_connected", OnDeviceConnected);
 		SteamVR_Utils.Event.Listen("hide_render_models", OnHideRenderModels);
+<<<<<<< HEAD
+=======
+		SteamVR_Utils.Event.Listen("ModelSkinSettingsHaveChanged", OnModelSkinSettingsHaveChanged);
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	}
 
 	void OnDisable()
@@ -594,6 +639,10 @@ public class SteamVR_RenderModel : MonoBehaviour
 #endif
 		SteamVR_Utils.Event.Remove("device_connected", OnDeviceConnected);
 		SteamVR_Utils.Event.Remove("hide_render_models", OnHideRenderModels);
+<<<<<<< HEAD
+=======
+		SteamVR_Utils.Event.Remove("ModelSkinSettingsHaveChanged", OnModelSkinSettingsHaveChanged);
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	}
 
 #if UNITY_EDITOR
@@ -682,8 +731,12 @@ public class SteamVR_RenderModel : MonoBehaviour
 					break;
 
 				var componentState = new RenderModel_ComponentState_t();
+<<<<<<< HEAD
 				var componentModeState = new RenderModel_ControllerMode_State_t();
                 if (!renderModels.GetComponentState(renderModelName, child.name, ref controllerState, ref componentModeState, ref componentState))
+=======
+                if (!renderModels.GetComponentState(renderModelName, child.name, ref controllerState, ref controllerModeState, ref componentState))
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 					continue;
 
 				var componentTransform = new SteamVR_Utils.RigidTransform(componentState.mTrackingToComponentRenderModel);

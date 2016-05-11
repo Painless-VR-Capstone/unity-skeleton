@@ -9,7 +9,11 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour {
+<<<<<<< HEAD
     internal const string defaultPresetFileName = "test.json";
+=======
+    internal const string defaultPresetFileName = "preset.json";
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
     internal string presetFilePath;
     internal int sceneIndex;
     //IMPORTANT This string holds all data from the JSON preset. All 

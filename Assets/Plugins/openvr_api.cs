@@ -235,6 +235,7 @@ public struct IVRSystem
 	[MarshalAs(UnmanagedType.FunctionPtr)]
 	internal _AcknowledgeQuit_UserPrompt AcknowledgeQuit_UserPrompt;
 
+<<<<<<< HEAD
 	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 	internal delegate void _PerformanceTestEnableCapture(bool bEnable);
 	[MarshalAs(UnmanagedType.FunctionPtr)]
@@ -245,6 +246,8 @@ public struct IVRSystem
 	[MarshalAs(UnmanagedType.FunctionPtr)]
 	internal _PerformanceTestReportFidelityLevelChange PerformanceTestReportFidelityLevelChange;
 
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -306,6 +309,14 @@ public struct IVRApplications
 	internal _LaunchApplication LaunchApplication;
 
 	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+<<<<<<< HEAD
+=======
+	internal delegate EVRApplicationError _LaunchTemplateApplication(string pchTemplateAppKey, string pchNewAppKey, [In, Out] AppOverrideKeys_t[] pKeys, uint unKeys);
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _LaunchTemplateApplication LaunchTemplateApplication;
+
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	internal delegate EVRApplicationError _LaunchDashboardOverlay(string pchAppKey);
 	[MarshalAs(UnmanagedType.FunctionPtr)]
 	internal _LaunchDashboardOverlay LaunchDashboardOverlay;
@@ -675,6 +686,19 @@ public struct IVRCompositor
 	[MarshalAs(UnmanagedType.FunctionPtr)]
 	internal _ForceInterleavedReprojectionOn ForceInterleavedReprojectionOn;
 
+<<<<<<< HEAD
+=======
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+	internal delegate void _ForceReconnectProcess();
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _ForceReconnectProcess ForceReconnectProcess;
+
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+	internal delegate void _SuspendRendering(bool bSuspend);
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _SuspendRendering SuspendRendering;
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -726,6 +750,19 @@ public struct IVROverlay
 	internal _GetOverlayErrorNameFromEnum GetOverlayErrorNameFromEnum;
 
 	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+<<<<<<< HEAD
+=======
+	internal delegate EVROverlayError _SetOverlayRenderingPid(ulong ulOverlayHandle, uint unPID);
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _SetOverlayRenderingPid SetOverlayRenderingPid;
+
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+	internal delegate uint _GetOverlayRenderingPid(ulong ulOverlayHandle);
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _GetOverlayRenderingPid GetOverlayRenderingPid;
+
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	internal delegate EVROverlayError _SetOverlayFlag(ulong ulOverlayHandle, VROverlayFlags eOverlayFlag, bool bEnabled);
 	[MarshalAs(UnmanagedType.FunctionPtr)]
 	internal _SetOverlayFlag SetOverlayFlag;
@@ -931,6 +968,19 @@ public struct IVROverlay
 	internal _SetOverlayFromFile SetOverlayFromFile;
 
 	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+<<<<<<< HEAD
+=======
+	internal delegate EVROverlayError _GetOverlayTexture(ulong ulOverlayHandle, ref IntPtr pNativeTextureHandle, IntPtr pNativeTextureRef, ref uint pWidth, ref uint pHeight, ref uint pNativeFormat, ref EGraphicsAPIConvention pAPI, ref EColorSpace pColorSpace);
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _GetOverlayTexture GetOverlayTexture;
+
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+	internal delegate EVROverlayError _ReleaseNativeOverlayHandle(ulong ulOverlayHandle, IntPtr pNativeTextureHandle);
+	[MarshalAs(UnmanagedType.FunctionPtr)]
+	internal _ReleaseNativeOverlayHandle ReleaseNativeOverlayHandle;
+
+	[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	internal delegate EVROverlayError _CreateDashboardOverlay(string pchOverlayKey, string pchOverlayFriendlyName, ref ulong pMainHandle, ref ulong pThumbnailHandle);
 	[MarshalAs(UnmanagedType.FunctionPtr)]
 	internal _CreateDashboardOverlay CreateDashboardOverlay;
@@ -1157,6 +1207,7 @@ public struct IVRSettings
 
 }
 
+<<<<<<< HEAD
 [StructLayout(LayoutKind.Sequential)]
 public struct IVRTrackedCamera
 {
@@ -1282,6 +1333,8 @@ public struct IVRTrackedCamera
 
 }
 
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 public class CVRSystem
 {
@@ -1509,6 +1562,7 @@ public class CVRSystem
 	{
 		FnTable.AcknowledgeQuit_UserPrompt();
 	}
+<<<<<<< HEAD
 	public void PerformanceTestEnableCapture(bool bEnable)
 	{
 		FnTable.PerformanceTestEnableCapture(bEnable);
@@ -1517,6 +1571,8 @@ public class CVRSystem
 	{
 		FnTable.PerformanceTestReportFidelityLevelChange(nFidelityLevel);
 	}
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 
 
@@ -1594,6 +1650,14 @@ public class CVRApplications
 		EVRApplicationError result = FnTable.LaunchApplication(pchAppKey);
 		return result;
 	}
+<<<<<<< HEAD
+=======
+	public EVRApplicationError LaunchTemplateApplication(string pchTemplateAppKey,string pchNewAppKey,AppOverrideKeys_t [] pKeys)
+	{
+		EVRApplicationError result = FnTable.LaunchTemplateApplication(pchTemplateAppKey,pchNewAppKey,pKeys,(uint) pKeys.Length);
+		return result;
+	}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public EVRApplicationError LaunchDashboardOverlay(string pchAppKey)
 	{
 		EVRApplicationError result = FnTable.LaunchDashboardOverlay(pchAppKey);
@@ -1972,6 +2036,17 @@ public class CVRCompositor
 	{
 		FnTable.ForceInterleavedReprojectionOn(bOverride);
 	}
+<<<<<<< HEAD
+=======
+	public void ForceReconnectProcess()
+	{
+		FnTable.ForceReconnectProcess();
+	}
+	public void SuspendRendering(bool bSuspend)
+	{
+		FnTable.SuspendRendering(bSuspend);
+	}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 
 
@@ -2031,6 +2106,19 @@ public class CVROverlay
 		IntPtr result = FnTable.GetOverlayErrorNameFromEnum(error);
 		return (string) Marshal.PtrToStructure(result, typeof(string));
 	}
+<<<<<<< HEAD
+=======
+	public EVROverlayError SetOverlayRenderingPid(ulong ulOverlayHandle,uint unPID)
+	{
+		EVROverlayError result = FnTable.SetOverlayRenderingPid(ulOverlayHandle,unPID);
+		return result;
+	}
+	public uint GetOverlayRenderingPid(ulong ulOverlayHandle)
+	{
+		uint result = FnTable.GetOverlayRenderingPid(ulOverlayHandle);
+		return result;
+	}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public EVROverlayError SetOverlayFlag(ulong ulOverlayHandle,VROverlayFlags eOverlayFlag,bool bEnabled)
 	{
 		EVROverlayError result = FnTable.SetOverlayFlag(ulOverlayHandle,eOverlayFlag,bEnabled);
@@ -2246,6 +2334,22 @@ public class CVROverlay
 		EVROverlayError result = FnTable.SetOverlayFromFile(ulOverlayHandle,pchFilePath);
 		return result;
 	}
+<<<<<<< HEAD
+=======
+	public EVROverlayError GetOverlayTexture(ulong ulOverlayHandle,ref IntPtr pNativeTextureHandle,IntPtr pNativeTextureRef,ref uint pWidth,ref uint pHeight,ref uint pNativeFormat,ref EGraphicsAPIConvention pAPI,ref EColorSpace pColorSpace)
+	{
+		pWidth = 0;
+		pHeight = 0;
+		pNativeFormat = 0;
+		EVROverlayError result = FnTable.GetOverlayTexture(ulOverlayHandle,ref pNativeTextureHandle,pNativeTextureRef,ref pWidth,ref pHeight,ref pNativeFormat,ref pAPI,ref pColorSpace);
+		return result;
+	}
+	public EVROverlayError ReleaseNativeOverlayHandle(ulong ulOverlayHandle,IntPtr pNativeTextureHandle)
+	{
+		EVROverlayError result = FnTable.ReleaseNativeOverlayHandle(ulOverlayHandle,pNativeTextureHandle);
+		return result;
+	}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public EVROverlayError CreateDashboardOverlay(string pchOverlayKey,string pchOverlayFriendlyName,ref ulong pMainHandle,ref ulong pThumbnailHandle)
 	{
 		pMainHandle = 0;
@@ -2479,6 +2583,7 @@ public class CVRSettings
 }
 
 
+<<<<<<< HEAD
 public class CVRTrackedCamera
 {
 	IVRTrackedCamera FnTable;
@@ -2614,6 +2719,8 @@ public class CVRTrackedCamera
 }
 
 
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 public class OpenVRInterop
 {
 	[DllImportAttribute("openvr_api", EntryPoint = "VR_InitInternal")]
@@ -2712,6 +2819,11 @@ public enum ETrackedDeviceProperty
 	Prop_Firmware_ProgrammingTarget_String = 1028,
 	Prop_DeviceClass_Int32 = 1029,
 	Prop_HasCamera_Bool = 1030,
+<<<<<<< HEAD
+=======
+	Prop_DriverVersion_String = 1031,
+	Prop_Firmware_ForceUpdateRequired_Bool = 1032,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	Prop_ReportsTimeSinceVSync_Bool = 2000,
 	Prop_SecondsFromVsyncToPhotons_Float = 2001,
 	Prop_DisplayFrequency_Float = 2002,
@@ -2745,6 +2857,10 @@ public enum ETrackedDeviceProperty
 	Prop_DisplayBootloaderVersion_Uint64 = 2030,
 	Prop_DisplayHardwareVersion_Uint64 = 2031,
 	Prop_AudioFirmwareVersion_Uint64 = 2032,
+<<<<<<< HEAD
+=======
+	Prop_CameraCompatibilityMode_Int32 = 2033,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	Prop_AttachedDeviceId_String = 3000,
 	Prop_SupportedButtons_Uint64 = 3001,
 	Prop_Axis0Type_Int32 = 3002,
@@ -2790,6 +2906,10 @@ public enum EVRState
 	Ready = 3,
 	Ready_Alert = 4,
 	NotReady = 5,
+<<<<<<< HEAD
+=======
+	Standby = 6,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 public enum EVREventType
 {
@@ -2820,6 +2940,10 @@ public enum EVREventType
 	VREvent_SceneFocusGained = 403,
 	VREvent_SceneApplicationChanged = 404,
 	VREvent_SceneFocusChanged = 405,
+<<<<<<< HEAD
+=======
+	VREvent_InputFocusChanged = 406,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	VREvent_HideRenderModels = 410,
 	VREvent_ShowRenderModels = 411,
 	VREvent_OverlayShown = 500,
@@ -2835,6 +2959,12 @@ public enum EVREventType
 	VREvent_HideKeyboard = 510,
 	VREvent_OverlayGamepadFocusGained = 511,
 	VREvent_OverlayGamepadFocusLost = 512,
+<<<<<<< HEAD
+=======
+	VREvent_OverlaySharedTextureChanged = 513,
+	VREvent_DashboardGuideButtonDown = 514,
+	VREvent_DashboardGuideButtonUp = 515,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	VREvent_Notification_Shown = 600,
 	VREvent_Notification_Hidden = 601,
 	VREvent_Notification_BeginInteraction = 602,
@@ -2843,13 +2973,24 @@ public enum EVREventType
 	VREvent_ProcessQuit = 701,
 	VREvent_QuitAborted_UserPrompt = 702,
 	VREvent_QuitAcknowledged = 703,
+<<<<<<< HEAD
+=======
+	VREvent_DriverRequestedQuit = 704,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	VREvent_ChaperoneDataHasChanged = 800,
 	VREvent_ChaperoneUniverseHasChanged = 801,
 	VREvent_ChaperoneTempDataHasChanged = 802,
 	VREvent_ChaperoneSettingsHaveChanged = 803,
 	VREvent_SeatedZeroPoseReset = 804,
+<<<<<<< HEAD
 	VREvent_BackgroundSettingHasChanged = 850,
 	VREvent_CameraSettingsHaveChanged = 851,
+=======
+	VREvent_AudioSettingsHaveChanged = 820,
+	VREvent_BackgroundSettingHasChanged = 850,
+	VREvent_CameraSettingsHaveChanged = 851,
+	VREvent_ReprojectionSettingHasChanged = 852,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	VREvent_StatusUpdate = 900,
 	VREvent_MCImageUpdated = 1000,
 	VREvent_FirmwareUpdateStarted = 1100,
@@ -2958,6 +3099,10 @@ public enum EVRApplicationType
 	VRApplication_Overlay = 2,
 	VRApplication_Background = 3,
 	VRApplication_Utility = 4,
+<<<<<<< HEAD
+=======
+	VRApplication_VRMonitor = 5,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 public enum EVRFirmwareError
 {
@@ -3000,6 +3145,10 @@ public enum EVRInitError
 	Init_NoServerForBackgroundApp = 121,
 	Init_NotSupportedWithCompositor = 122,
 	Init_NotAvailableToUtilityApps = 123,
+<<<<<<< HEAD
+=======
+	Init_Internal = 124,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	Driver_Failed = 200,
 	Driver_Unknown = 201,
 	Driver_HmdUnknown = 202,
@@ -3017,6 +3166,10 @@ public enum EVRInitError
 	IPC_Failed = 305,
 	Compositor_Failed = 400,
 	Compositor_D3D11HardwareRequired = 401,
+<<<<<<< HEAD
+=======
+	Compositor_FirmwareRequiresUpdate = 402,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	VendorSpecific_UnableToConnectToOculusRuntime = 1000,
 	VendorSpecific_HmdFound_CantOpenDevice = 1101,
 	VendorSpecific_HmdFound_UnableToRequestConfigStart = 1102,
@@ -3050,9 +3203,17 @@ public enum EVRApplicationError
 	LaunchInProgress = 111,
 	OldApplicationQuitting = 112,
 	TransitionAborted = 113,
+<<<<<<< HEAD
 	BufferTooSmall = 200,
 	PropertyNotSet = 201,
 	UnknownProperty = 202,
+=======
+	IsTemplate = 114,
+	BufferTooSmall = 200,
+	PropertyNotSet = 201,
+	UnknownProperty = 202,
+	InvalidParameter = 203,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 public enum EVRApplicationProperty
 {
@@ -3067,6 +3228,11 @@ public enum EVRApplicationProperty
 	ImagePath_String = 52,
 	Source_String = 53,
 	IsDashboardOverlay_Bool = 60,
+<<<<<<< HEAD
+=======
+	IsTemplate_Bool = 61,
+	IsInstanced_Bool = 62,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	LastLaunchTime_Uint64 = 70,
 }
 public enum EVRApplicationTransitionState
@@ -3133,6 +3299,10 @@ public enum VROverlayFlags
 	SendVRScrollEvents = 6,
 	SendVRTouchpadEvents = 7,
 	ShowTouchPadScrollWheel = 8,
+<<<<<<< HEAD
+=======
+	TransferOwnershipToInternalProcess = 9,
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 public enum EGamepadTextInputMode
 {
@@ -3194,6 +3364,7 @@ public enum EVRSettingsError
 	WriteFailed = 2,
 	ReadFailed = 3,
 }
+<<<<<<< HEAD
 public enum ECameraVideoStreamFormat
 {
 	CVS_FORMAT_UNKNOWN = 0,
@@ -3202,6 +3373,8 @@ public enum ECameraVideoStreamFormat
 	CVS_FORMAT_RGB24 = 3,
 	CVS_MAX_FORMATS = 4,
 }
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 [StructLayout(LayoutKind.Explicit)] public struct VREvent_Data_t
 {
@@ -3386,8 +3559,12 @@ public enum ECameraVideoStreamFormat
 }
 [StructLayout(LayoutKind.Sequential)] public struct VREvent_Keyboard_t
 {
+<<<<<<< HEAD
 	[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 8)]
 	public string cNewInput; //char[8]
+=======
+	public byte cNewInput0,cNewInput1,cNewInput2,cNewInput3,cNewInput4,cNewInput5,cNewInput6,cNewInput7;
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public ulong uUserValue;
 }
 [StructLayout(LayoutKind.Sequential)] public struct VREvent_Ipd_t
@@ -3460,6 +3637,14 @@ public enum ECameraVideoStreamFormat
 	public float gridScale;
 	public HmdMatrix44_t transform;
 }
+<<<<<<< HEAD
+=======
+[StructLayout(LayoutKind.Sequential)] public struct AppOverrideKeys_t
+{
+	public IntPtr pchKey; // const char *
+	public IntPtr pchValue; // const char *
+}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 [StructLayout(LayoutKind.Sequential)] public struct Compositor_FrameTiming
 {
 	public uint m_nSize;
@@ -3484,6 +3669,10 @@ public enum ECameraVideoStreamFormat
 	public float m_flCompositorRenderStartMs;
 	public TrackedDevicePose_t m_HmdPose;
 	public int m_nFidelityLevel;
+<<<<<<< HEAD
+=======
+	public uint m_nReprojectionFlags;
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 }
 [StructLayout(LayoutKind.Sequential)] public struct VROverlayIntersectionParams_t
 {
@@ -3537,6 +3726,7 @@ public enum ECameraVideoStreamFormat
 	public int height;
 	public int depth;
 }
+<<<<<<< HEAD
 [StructLayout(LayoutKind.Sequential)] public struct CameraVideoStreamFrame_t
 {
 	public ECameraVideoStreamFormat m_nStreamFormat;
@@ -3567,6 +3757,8 @@ public enum ECameraVideoStreamFormat
 	public float m_Pad3;
 	public IntPtr m_pImageData; // void *
 }
+=======
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 [StructLayout(LayoutKind.Sequential)] public struct COpenVRContext
 {
 	public IntPtr m_pVRSystem; // class vr::IVRSystem *
@@ -3631,6 +3823,7 @@ public class OpenVR
 	public const uint k_unMaxPropertyStringSize = 32768;
 	public const uint k_unControllerStateAxisCount = 5;
 	public const ulong k_ulOverlayHandleInvalid = 0;
+<<<<<<< HEAD
 	public const string IVRSystem_Version = "IVRSystem_011";
 	public const string IVRExtendedDisplay_Version = "IVRExtendedDisplay_001";
 	public const uint k_unMaxApplicationKeyLength = 128;
@@ -3642,6 +3835,19 @@ public class OpenVR
 	public const uint k_unVROverlayMaxNameLength = 128;
 	public const uint k_unMaxOverlayCount = 32;
 	public const string IVROverlay_Version = "IVROverlay_010";
+=======
+	public const string IVRSystem_Version = "IVRSystem_012";
+	public const string IVRExtendedDisplay_Version = "IVRExtendedDisplay_001";
+	public const uint k_unMaxApplicationKeyLength = 128;
+	public const string IVRApplications_Version = "IVRApplications_005";
+	public const string IVRChaperone_Version = "IVRChaperone_003";
+	public const string IVRChaperoneSetup_Version = "IVRChaperoneSetup_005";
+	public const string IVRCompositor_Version = "IVRCompositor_014";
+	public const uint k_unVROverlayMaxKeyLength = 128;
+	public const uint k_unVROverlayMaxNameLength = 128;
+	public const uint k_unMaxOverlayCount = 32;
+	public const string IVROverlay_Version = "IVROverlay_011";
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public const string k_pch_Controller_Component_GDC2015 = "gdc2015";
 	public const string k_pch_Controller_Component_Base = "base";
 	public const string k_pch_Controller_Component_Tip = "tip";
@@ -3651,6 +3857,10 @@ public class OpenVR
 	public const uint k_unNotificationTextMaxSize = 256;
 	public const string IVRNotifications_Version = "IVRNotifications_002";
 	public const uint k_unMaxSettingsKeyLength = 128;
+<<<<<<< HEAD
+=======
+	public const string IVRSettings_Version = "IVRSettings_001";
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public const string k_pch_SteamVR_Section = "steamvr";
 	public const string k_pch_SteamVR_RequireHmd_String = "requireHmd";
 	public const string k_pch_SteamVR_ForcedDriverKey_String = "forcedDriver";
@@ -3676,6 +3886,12 @@ public class OpenVR
 	public const string k_pch_SteamVR_UsingSpeakers_Bool = "usingSpeakers";
 	public const string k_pch_SteamVR_SpeakersForwardYawOffsetDegrees_Float = "speakersForwardYawOffsetDegrees";
 	public const string k_pch_SteamVR_BaseStationPowerManagement_Bool = "basestationPowerManagement";
+<<<<<<< HEAD
+=======
+	public const string k_pch_SteamVR_NeverKillProcesses_Bool = "neverKillProcesses";
+	public const string k_pch_SteamVR_RenderTargetMultiplier_Float = "renderTargetMultiplier";
+	public const string k_pch_SteamVR_AllowReprojection_Bool = "allowReprojection";
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public const string k_pch_Lighthouse_Section = "driver_lighthouse";
 	public const string k_pch_Lighthouse_DisableIMU_Bool = "disableimu";
 	public const string k_pch_Lighthouse_UseDisambiguation_String = "usedisambiguation";
@@ -3707,6 +3923,15 @@ public class OpenVR
 	public const string k_pch_Notifications_DoNotDisturb_Bool = "DoNotDisturb";
 	public const string k_pch_Keyboard_Section = "keyboard";
 	public const string k_pch_Keyboard_TutorialCompletions = "TutorialCompletions";
+<<<<<<< HEAD
+=======
+	public const string k_pch_Keyboard_ScaleX = "ScaleX";
+	public const string k_pch_Keyboard_ScaleY = "ScaleY";
+	public const string k_pch_Keyboard_OffsetLeftX = "OffsetLeftX";
+	public const string k_pch_Keyboard_OffsetRightX = "OffsetRightX";
+	public const string k_pch_Keyboard_OffsetY = "OffsetY";
+	public const string k_pch_Keyboard_Smoothing = "Smoothing";
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	public const string k_pch_Perf_Section = "perfcheck";
 	public const string k_pch_Perf_HeuristicActive_Bool = "heuristicActive";
 	public const string k_pch_Perf_NotifyInHMD_Bool = "warnInHMD";
@@ -3714,6 +3939,7 @@ public class OpenVR
 	public const string k_pch_Perf_AllowTimingStore_Bool = "allowTimingStore";
 	public const string k_pch_Perf_SaveTimingsOnExit_Bool = "saveTimingsOnExit";
 	public const string k_pch_Perf_TestData_Float = "perfTestData";
+<<<<<<< HEAD
 	public const string k_pch_Camera_Section = "camera";
 	public const string IVRSettings_Version = "IVRSettings_001";
 	public const string k_pch_audio_Section = "audio";
@@ -3723,6 +3949,34 @@ public class OpenVR
 	public const string k_pch_audio_OffRecordDevice_String = "offRecordDevice";
 	public const string k_pch_audio_VIVEHDMIGain = "viveHDMIGain";
 	public const string IVRTrackedCamera_Version = "IVRTrackedCamera_001";
+=======
+	public const string k_pch_CollisionBounds_Section = "collisionBounds";
+	public const string k_pch_CollisionBounds_Style_Int32 = "CollisionBoundsStyle";
+	public const string k_pch_CollisionBounds_GroundPerimeterOn_Bool = "CollisionBoundsGroundPerimeterOn";
+	public const string k_pch_CollisionBounds_CenterMarkerOn_Bool = "CollisionBoundsCenterMarkerOn";
+	public const string k_pch_CollisionBounds_PlaySpaceOn_Bool = "CollisionBoundsPlaySpaceOn";
+	public const string k_pch_CollisionBounds_FadeDistance_Float = "CollisionBoundsFadeDistance";
+	public const string k_pch_CollisionBounds_ColorGammaR_Int32 = "CollisionBoundsColorGammaR";
+	public const string k_pch_CollisionBounds_ColorGammaG_Int32 = "CollisionBoundsColorGammaG";
+	public const string k_pch_CollisionBounds_ColorGammaB_Int32 = "CollisionBoundsColorGammaB";
+	public const string k_pch_CollisionBounds_ColorGammaA_Int32 = "CollisionBoundsColorGammaA";
+	public const string k_pch_Camera_Section = "camera";
+	public const string k_pch_Camera_EnableCamera_Bool = "enableCamera";
+	public const string k_pch_Camera_EnableCameraInDashboard_Bool = "enableCameraInDashboard";
+	public const string k_pch_Camera_EnableCameraForCollisionBounds_Bool = "enableCameraForCollisionBounds";
+	public const string k_pch_Camera_EnableCameraForRoomView_Bool = "enableCameraForRoomView";
+	public const string k_pch_Camera_BoundsColorGammaR_Int32 = "cameraBoundsColorGammaR";
+	public const string k_pch_Camera_BoundsColorGammaG_Int32 = "cameraBoundsColorGammaG";
+	public const string k_pch_Camera_BoundsColorGammaB_Int32 = "cameraBoundsColorGammaB";
+	public const string k_pch_Camera_BoundsColorGammaA_Int32 = "cameraBoundsColorGammaA";
+	public const string k_pch_audio_Section = "audio";
+	public const string k_pch_audio_OnPlaybackDevice_String = "onPlaybackDevice";
+	public const string k_pch_audio_OnRecordDevice_String = "onRecordDevice";
+	public const string k_pch_audio_OnPlaybackMirrorDevice_String = "onPlaybackMirrorDevice";
+	public const string k_pch_audio_OffPlaybackDevice_String = "offPlaybackDevice";
+	public const string k_pch_audio_OffRecordDevice_String = "offRecordDevice";
+	public const string k_pch_audio_VIVEHDMIGain = "viveHDMIGain";
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 	static uint VRToken { get; set; }
 

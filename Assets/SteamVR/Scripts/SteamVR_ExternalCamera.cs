@@ -185,7 +185,14 @@ public class SteamVR_ExternalCamera : MonoBehaviour
 		var h = Screen.height / 2;
 
 		if (cam.targetTexture == null || cam.targetTexture.width != w || cam.targetTexture.height != h)
+<<<<<<< HEAD
 			cam.targetTexture = new RenderTexture(w, h, 16, RenderTextureFormat.ARGB32);
+=======
+		{
+			cam.targetTexture = new RenderTexture(w, h, 24, RenderTextureFormat.ARGB32);
+			cam.targetTexture.antiAliasing = QualitySettings.antiAliasing == 0 ? 1 : QualitySettings.antiAliasing;
+		}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 		cam.nearClipPlane = config.near;
 		cam.farClipPlane = config.far;
@@ -250,6 +257,14 @@ public class SteamVR_ExternalCamera : MonoBehaviour
 		Graphics.DrawTexture(new Rect(0, h, w, h), cam.targetTexture, colorMat);
 	}
 
+<<<<<<< HEAD
+=======
+	void OnGUI()
+	{
+		// Necessary for Graphics.DrawTexture to work even though we don't do anything here.
+	}
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	Camera[] cameras;
 	Rect[] cameraRects;
 	float sceneResolutionScale;

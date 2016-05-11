@@ -36,6 +36,10 @@ public class SteamVR_Camera : MonoBehaviour
 
 	static public Material blitMaterial;
 
+<<<<<<< HEAD
+=======
+#if (UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 	// Using a single shared offscreen buffer to render the scene.  This needs to be larger
 	// than the backbuffer to account for distortion correction.  The default resolution
 	// gives us 1:1 sized pixels in the center of view, but quality can be adjusted up or
@@ -69,15 +73,31 @@ public class SteamVR_Camera : MonoBehaviour
 			_sceneTexture = new RenderTexture(w, h, 0, format);
 			_sceneTexture.antiAliasing = aa;
 
+<<<<<<< HEAD
 #if (UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
 			// OpenVR assumes floating point render targets are linear unless otherwise specified.
 			var colorSpace = (hdr && QualitySettings.activeColorSpace == ColorSpace.Gamma) ? EColorSpace.Gamma : EColorSpace.Auto;
 			SteamVR.Unity.SetColorSpace(colorSpace);
 #endif
+=======
+			// OpenVR assumes floating point render targets are linear unless otherwise specified.
+			var colorSpace = (hdr && QualitySettings.activeColorSpace == ColorSpace.Gamma) ? EColorSpace.Gamma : EColorSpace.Auto;
+			SteamVR.Unity.SetColorSpace(colorSpace);
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 		}
 
 		return _sceneTexture;
 	}
+<<<<<<< HEAD
+=======
+#else
+	static public float sceneResolutionScale
+	{
+		get { return UnityEngine.VR.VRSettings.renderScale; }
+		set { UnityEngine.VR.VRSettings.renderScale = value; }
+	}
+#endif
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 
 	#endregion
 
@@ -90,6 +110,25 @@ public class SteamVR_Camera : MonoBehaviour
 
 	void OnEnable()
 	{
+<<<<<<< HEAD
+=======
+		// Bail if no hmd is connected
+		var vr = SteamVR.instance;
+		if (vr == null)
+		{
+			if (head != null)
+			{
+				head.GetComponent<SteamVR_GameView>().enabled = false;
+				head.GetComponent<SteamVR_TrackedObject>().enabled = false;
+			}
+
+			if (flip != null)
+				flip.enabled = false;
+
+			enabled = false;
+			return;
+		}
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 #if !(UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
 		// Convert camera rig for native OpenVR integration.
 		var t = transform;
@@ -101,7 +140,19 @@ public class SteamVR_Camera : MonoBehaviour
 
 			while (head.childCount > 0)
 				head.GetChild(0).parent = t;
+<<<<<<< HEAD
 			DestroyImmediate(head.gameObject);
+=======
+
+			// Keep the head around, but parent to the camera now since it moves with the hmd
+			// but existing content may still have references to this object.
+			head.parent = t;
+			head.localPosition = Vector3.zero;
+			head.localRotation = Quaternion.identity;
+			head.localScale = Vector3.one;
+			head.gameObject.SetActive(false);
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 			_head = t;
 		}
 
@@ -110,6 +161,7 @@ public class SteamVR_Camera : MonoBehaviour
 			DestroyImmediate(flip);
 			flip = null;
 		}
+<<<<<<< HEAD
 
 		if (!SteamVR.usingNativeSupport)
 		{
@@ -134,6 +186,9 @@ public class SteamVR_Camera : MonoBehaviour
 			return;
 		}
 
+=======
+#else
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 		// Ensure rig is properly set up
 		Expand();
 
@@ -164,7 +219,20 @@ public class SteamVR_Camera : MonoBehaviour
 			headCam.renderingPath = camera.renderingPath;
 		}
 #endif
+<<<<<<< HEAD
 		ears.GetComponent<SteamVR_Ears>().vrcam = this;
+=======
+		if (ears == null)
+		{
+			var e = transform.GetComponentInChildren<SteamVR_Ears>();
+			if (e != null)
+				_ears = e.transform;
+        }
+
+		if (ears != null)
+			ears.GetComponent<SteamVR_Ears>().vrcam = this;
+
+>>>>>>> 0a6a02c7630a6a10656409243cf8ba4d103576eb
 		SteamVR_Render.Add(this);
 	}
 
