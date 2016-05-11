@@ -7,6 +7,7 @@ public class VRFlightScript : MonoBehaviour {
     public Text countDown;
     public float camSpeed;
     public Renderer perifereeMaterial1, perifereeMaterial2;
+    public int controlScheme, shiftAmount;
 
     private float leftDist, rightDist;
     private int startTimer = 300;
@@ -25,42 +26,60 @@ public class VRFlightScript : MonoBehaviour {
 
         if (startTimer < 0)
         {
-            countDown.text = "";
             //Set resting angle manually
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.R))
             {
                 centerVision();
             }
             restObject.position = Vector3.ProjectOnPlane(restObject.position, Vector3.up);
             camRigTransform.position += transform.forward * camSpeed * .2f;
-            leftDist = (Vector3.ProjectOnPlane(transform.position + projectedForward, Vector3.up) - leftObject.position).magnitude;
-            rightDist = (Vector3.ProjectOnPlane(transform.position + projectedForward, Vector3.up) - rightObject.position).magnitude;
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.W))
             {
                 camRigTransform.transform.position += transform.forward * camSpeed * .15f;
             }
 
-
-            if (leftDist > 1.6f)
+            //Control screen turning and blinder fade
+            switch (controlScheme)
             {
-                camRigTransform.RotateAround(transform.position, Vector3.up, -(leftDist - 1.6f) * 2);
-                perifereeMaterial2.material.SetFloat("_Cutoff", Mathf.Lerp(.425f, .38f, (leftDist - 1.62f) * 2));
-                perifereeMaterial1.material.SetFloat("_Cutoff", Mathf.Lerp(.425f, .38f, (leftDist - 1.62f) * 2));
-            } else if (rightDist > 1.6f)
-            {
-                camRigTransform.RotateAround(transform.position, Vector3.up, (rightDist - 1.6f) * 2);
-                perifereeMaterial2.material.SetFloat("_Cutoff", Mathf.Lerp(.425f, .38f, (rightDist - 1.62f) * 2));
-                perifereeMaterial1.material.SetFloat("_Cutoff", Mathf.Lerp(.425f, .38f, (rightDist - 1.62f) * 2));
-            } else
-            {
-                perifereeMaterial1.material.SetFloat("_Cutoff", 1);
-                perifereeMaterial2.material.SetFloat("_Cutoff", 1);
+                case 0:
+                    leftDist = (Vector3.ProjectOnPlane(transform.position + projectedForward, Vector3.up) - leftObject.position).magnitude;
+                    rightDist = (Vector3.ProjectOnPlane(transform.position + projectedForward, Vector3.up) - rightObject.position).magnitude;
+                    if (leftDist > 1.6f)
+                    {
+                        camRigTransform.RotateAround(transform.position, Vector3.up, -(leftDist - 1.6f) * 2);
+                        perifereeMaterial2.material.SetFloat("_Cutoff", Mathf.Lerp(.4f, .3f, (leftDist - 1.62f) * 2));
+                        perifereeMaterial1.material.SetFloat("_Cutoff", Mathf.Lerp(.4f, .3f, (leftDist - 1.62f) * 2));
+                    }
+                    else if (rightDist > 1.6f)
+                    {
+                        camRigTransform.RotateAround(transform.position, Vector3.up, (rightDist - 1.6f) * 2);
+                        perifereeMaterial2.material.SetFloat("_Cutoff", Mathf.Lerp(.4f, .3f, (rightDist - 1.62f) * 2));
+                        perifereeMaterial1.material.SetFloat("_Cutoff", Mathf.Lerp(.4f, .3f, (rightDist - 1.62f) * 2));
+                    }
+                    else
+                    {
+                        perifereeMaterial1.material.SetFloat("_Cutoff", 1);
+                        perifereeMaterial2.material.SetFloat("_Cutoff", 1);
+                    }
+                    break;
+                case 1:
+                    if (Input.GetKeyDown(KeyCode.A))
+                    {
+                        camRigTransform.RotateAround(transform.position, Vector3.up, -shiftAmount);
+                    }
+                    if (Input.GetKeyDown(KeyCode.D))
+                    {
+                        camRigTransform.RotateAround(transform.position, Vector3.up, shiftAmount);
+                    }
+                    break;
             }
         }
         else if (startTimer >= 0) {
             countDown.text = "Look straight ahead \n" + startTimer / 90;
             centerVision();
+            if (startTimer == 0)
+                countDown.text = "";
             startTimer--;
         }
     }
