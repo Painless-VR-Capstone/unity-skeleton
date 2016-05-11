@@ -3,15 +3,16 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
+    internal static GameManager gameManager;
     internal bool isGrounded;
-    internal bool hasPeaked;
+    //internal bool hasPeaked;
 
-    public float jumpHorizontalSpeed;
+    //public float jumpHorizontalSpeed;
     public float jumpPower;
-    public float jumpGravity;
+    //public float jumpGravity;
     public float jumpHeight;
-    public float rotateSpeed;
-    public bool canTurnInAir;
+    //public float rotateSpeed;
+    //public bool canTurnInAir;
 
     internal float initialHeight;
 
@@ -22,7 +23,8 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        hasPeaked = true;
+        gameManager = GameObject.Find("Manager").GetComponent<GameManager>();
+        //hasPeaked = true;
         isGrounded = true;
         platSpeed = GameObject.Find("MovingObjects").GetComponent<PlatformMovement>().speed;
 	}
@@ -105,25 +107,25 @@ public class PlayerController : MonoBehaviour {
         //}
     }
 
-    public void Jump()
-    {
-        if (transform.position.y >= initialHeight + jumpHeight)
-        {
-            hasPeaked = true;
-            Debug.Log("Player jump has peaked");
-        }
+    //public void Jump()
+    //{
+    //    if (transform.position.y >= initialHeight + jumpHeight)
+    //    {
+    //        hasPeaked = true;
+    //        Debug.Log("Player jump has peaked");
+    //    }
 
-        transform.Translate(Vector3.forward * Time.deltaTime * jumpHorizontalSpeed); //Move forward
+    //    transform.Translate(Vector3.forward * Time.deltaTime * jumpHorizontalSpeed); //Move forward
 
-        if (!hasPeaked)
-            transform.Translate(Vector3.up * Time.deltaTime * jumpPower); //Move up
-        else
-            transform.Translate(Vector3.down * Time.deltaTime * jumpGravity); //Move down
+    //    if (!hasPeaked)
+    //        transform.Translate(Vector3.up * Time.deltaTime * jumpPower); //Move up
+    //    else
+    //        transform.Translate(Vector3.down * Time.deltaTime * jumpGravity); //Move down
 
-    }
+    //}
 
     GameObject targetObj;
-    public float jumpTime = 1.3f;
+    public float jumpTime;
 
     Vector3 startPos;
     Vector3 targetPos;
@@ -151,10 +153,22 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.transform.tag == "Platform")
         {
-           //Debug.Log("Player is grounded");
+            //Debug.Log("Player is grounded");
+            transform.SetParent(collision.transform);
+            transform.SetAsFirstSibling();
             OncomingPlatforms.SortPlats();
             isGrounded = true;
         } 
 
     }
+
+    //void OnDestroy()
+    //{
+    //    GameObject particle = Instantiate(Resources.Load("Platformer/LavaBurnParticle") as GameObject);
+    //    particle.transform.localScale = new Vector3(.7f, .7f, .7f);
+    //    particle.transform.position = this.transform.position;
+    //    //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
+    //    //newParticles.GetComponent<ParticleSystem>().Play();
+    //    gameManager.DestroyPlayer();
+    //}
 }

@@ -14,21 +14,24 @@ public class UIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Debug.Log("UIController START");
-        int dist = (int)Vector3.Distance(GameManager.player.transform.position, goal.transform.position);
-        minDistToGoalText.text = Stats.minDistToGoal + "m";
-        minDistToGoalText.color = Color.magenta;
-        textStartColor = distToGoalText.color;
+        if (GameManager.player != null)
+        {
+            int dist = (int)Vector3.Distance(GameManager.player.transform.position, goal.transform.position);
+            minDistToGoalText.text = Stats.minDistToGoal + "m";
+            minDistToGoalText.color = Color.magenta;
+            textStartColor = distToGoalText.color;
 
-        //if (Stats.minDistToGoal > dist)
-        //{
-        //    Stats.minDistToGoal = dist;
-        //}
+            //if (Stats.minDistToGoal > dist)
+            //{
+            //    Stats.minDistToGoal = dist;
+            //}
+        }
 
     }
 
     // Update is called once per frame
     void Update () {
-        if (GameManager.playerIsAlive)
+        if (GameManager.playerIsAlive && GameManager.player != null)
         {
             int dist = (int)Vector3.Distance(GameManager.player.transform.position, goal.transform.position);
 

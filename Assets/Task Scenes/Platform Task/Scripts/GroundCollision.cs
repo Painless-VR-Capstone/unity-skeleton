@@ -21,25 +21,29 @@ public class GroundCollision : MonoBehaviour {
             GameObject particle = Instantiate(Resources.Load("Platformer/LavaBurnParticle") as GameObject);
             particle.transform.localScale = new Vector3(.7f, .7f, .7f);
             particle.transform.position = collider.transform.position;
-            //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
-            //newParticles.GetComponent<ParticleSystem>().Play();
-            StartCoroutine(Wait());
-            //Destroy(newParticles);
+            Destroy(particle, 3);
+            Destroy(collider.gameObject);
+            PlayerController.gameManager.DestroyPlayer();
         } else if (collider.tag == "Platform")
         {
+            if (collider.transform.childCount > 0)
+            {
+                collider.transform.GetChild(0).SetParent(this.transform.parent);
+            }
             GameObject particle = Instantiate(Resources.Load("Platformer/LavaBurnParticle") as GameObject);
             particle.transform.position = collider.transform.position;
+            Destroy(particle, 3);
             Destroy(collider.gameObject);
         }
     }
 
-    IEnumerator Wait()
-    {
-        GameManager.DestroyPlayer();
+    //IEnumerator Wait()
+    //{
+    //    GameManager.DestroyPlayer();
 
-        yield return new WaitForSeconds(2);
-        GameManager.RestartGame();
-        Debug.Log("ROUTINE OVER");
-    }
+    //    yield return new WaitForSeconds(2);
+    //    GameManager.RestartGame();
+    //    Debug.Log("ROUTINE OVER");
+    //}
 }
 

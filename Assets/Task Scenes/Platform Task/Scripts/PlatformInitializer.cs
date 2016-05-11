@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlatformInitializer : SceneInitializer {
     public GameObject humanPlayer, orbPlayer, robotPlayer;
-   
+    PlatformPresetModel presetModel;
 
 
     void Awake()
@@ -16,33 +16,31 @@ public class PlatformInitializer : SceneInitializer {
             CameraColorShift.saturation = presetModel.saturation;
             CameraColorShift.hue = presetModel.hue;
             SetPlayerObject();
+            GameManager.Init();
+            PlayerController playCtrl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            playCtrl.jumpTime = presetModel.jumpSpeed;
+            GameManager.startJumpTime = presetModel.jumpSpeed;
+
         }
         else
         {
             Debug.Log("No JSON to initialize");
         }
+
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
 	}
 
     void SetPlayerObject()
     {
-        Debug.Log(presetModel.playerObject.ToString());
-        Transform parent = GameObject.Find("MovingObjects").transform;
-        switch (presetModel.playerObject.ToString())
-        {
-            case "Human":
-                Instantiate(humanPlayer).transform.SetParent(parent, false);
-                break;
-            case "Orb":
-                Instantiate(orbPlayer).transform.SetParent(parent, false);
-                break;
-            default:
-                break;
-        }
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+
+        GameManager.playerObject = presetModel.playerObject.ToString();
+        //GameObject.Find("Manager").GetComponent<GameManager>().SpawnPlayer();
     }
 	
 	// Update is called once per frame
