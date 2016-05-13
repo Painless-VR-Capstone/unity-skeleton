@@ -12,18 +12,32 @@ public class GameManager : MonoBehaviour {
     public static PlatformPresetModel presetModel;
     void Awake()
     {
-        //Init();
     }
 
     // Use this for initialization
     void Start () {
-	}
+        //Init();
+
+    }
 
     internal static void Init()
     {
-        //GameObject.Find("Manager").GetComponent<GameManager>().SpawnPlayer();
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameManager gm = GameObject.Find("Manager").GetComponent<GameManager>();
+        if (presetModel == null)
+        {
+            gm.SpawnPlayer();
+            //player = GameObject.FindGameObjectWithTag("Player");
+        } else
+        {
+            CameraColorShift.brightness = presetModel.brightness;
+            CameraColorShift.contrast = presetModel.contrast;
+            CameraColorShift.saturation = presetModel.saturation;
+            CameraColorShift.hue = presetModel.hue;
+            gm.SetPlayerObject();
+            gm.SpawnPlayer();
+        }
         playerIsAlive = true;
+
         playCtrl = player.GetComponent<PlayerController>();
         startJumpTime = playCtrl.jumpTime;
     }
@@ -36,16 +50,18 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < boostTimes.Count; i++)
         {
-            if (boostTimes[i] + 3f < Time.time)
+            if (boostTimes[i] + 3.5f < Time.time)
             {
                 boostTimes.RemoveAt(i);
                 playCtrl.jumpTime += boostPower;
             }
         }
 
+
         if (boostTimes.Count == 0)
             playCtrl.jumpTime = startJumpTime;
 
+        Debug.Log("Boosting speed: " + boostTimes.Count * boostPower);
         playCtrl.jumpTime = startJumpTime - Mathf.Clamp(boostTimes.Count * boostPower, .01f, 20f);
 
 	}
@@ -85,14 +101,26 @@ public class GameManager : MonoBehaviour {
         switch (playerObject)
         {
             case "Human":
-                Instantiate(humanPlayer).transform.SetParent(parent, false);
+                player = Instantiate(humanPlayer);
+                player.transform.SetParent(parent, false);
                 break;
             case "Orb":
-                Instantiate(orbPlayer).transform.SetParent(parent, false);
+                player = Instantiate(orbPlayer);
+                player.transform.SetParent(parent, false);
                 break;
             default:
-                Instantiate(humanPlayer).transform.SetParent(parent, false);
+                player = Instantiate(orbPlayer);
+                player.transform.SetParent(parent, false);
                 break;
         }
+    }
+
+    void SetPlayerObject()
+    {
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+            Destroy(GameObject.FindGameObjectWithTag("Player"));
+
+        GameManager.playerObject = presetModel.playerObject.ToString();
+        //GameObject.Find("Manager").GetComponent<GameManager>().SpawnPlayer();
     }
 }
