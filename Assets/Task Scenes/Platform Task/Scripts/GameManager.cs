@@ -10,13 +10,15 @@ public class GameManager : MonoBehaviour {
     public static string playerObject;
     public GameObject humanPlayer, orbPlayer, robotPlayer;
     public static PlatformPresetModel presetModel;
-    void Awake()
+    void OnEnable()
     {
+        if (player == null)
+            Init();
     }
 
     // Use this for initialization
     void Start () {
-        //Init();
+
 
     }
 
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour {
         if (boostTimes.Count == 0)
             playCtrl.jumpTime = startJumpTime;
 
-        Debug.Log("Boosting speed: " + boostTimes.Count * boostPower);
+
         playCtrl.jumpTime = startJumpTime - Mathf.Clamp(boostTimes.Count * boostPower, .01f, 20f);
 
 	}
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour {
                 player.transform.SetParent(parent, false);
                 break;
             default:
-                player = Instantiate(orbPlayer);
+                player = Instantiate(humanPlayer);
                 player.transform.SetParent(parent, false);
                 break;
         }

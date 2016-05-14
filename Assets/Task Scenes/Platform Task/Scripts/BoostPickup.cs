@@ -18,10 +18,11 @@ public class BoostPickup : MonoBehaviour {
         if (collider.tag == "Player")
         {
             Debug.Log("Boost pickup");
-            Instantiate(Resources.Load("Platformer/SlowPickupParticle") as GameObject, this.transform.position, Quaternion.identity);
+            GameObject newParticle = (GameObject)Instantiate(Resources.Load("Platformer/SlowPickupParticle") as GameObject, this.transform.position, Quaternion.identity);
+            Destroy(newParticle, 3);
+
             GameManager.BoostPlayer();
-            //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
-            //newParticles.GetComponent<ParticleSystem>().Play();
+
             PlatformFall.fallingGOs.Remove(this.gameObject);
             Destroy(this.gameObject);
             //Destroy(newParticles);

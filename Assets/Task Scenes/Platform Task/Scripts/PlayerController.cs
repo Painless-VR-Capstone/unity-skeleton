@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour {
         float vert = Input.GetAxis("Vertical");
         if ((horz > 0.01 || horz < -0.01 || vert > 0.01) && isGrounded)
         {
-            Debug.Log("JUMP");
             startPos = transform.position;
             int platformIndex;
             if (horz > 0)
@@ -153,22 +152,15 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.transform.tag == "Platform")
         {
-            //Debug.Log("Player is grounded");
+            OncomingPlatforms.SortPlats();
+
+            Debug.Log("Player is grounded");
             transform.SetParent(collision.transform);
             transform.SetAsFirstSibling();
-            OncomingPlatforms.SortPlats();
             isGrounded = true;
         } 
 
     }
 
-    //void OnDestroy()
-    //{
-    //    GameObject particle = Instantiate(Resources.Load("Platformer/LavaBurnParticle") as GameObject);
-    //    particle.transform.localScale = new Vector3(.7f, .7f, .7f);
-    //    particle.transform.position = this.transform.position;
-    //    //GameObject newParticles = Instantiate(particles, collider.transform.position, collider.transform.rotation) as GameObject;
-    //    //newParticles.GetComponent<ParticleSystem>().Play();
-    //    gameManager.DestroyPlayer();
-    //}
+
 }
