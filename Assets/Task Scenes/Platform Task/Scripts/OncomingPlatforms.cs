@@ -44,7 +44,6 @@ public class OncomingPlatforms : MonoBehaviour {
     {
         foreach (GameObject plat in unsortedPlats)
         {
-            Debug.Log("Sortin' plat");
             float platZ = plat.transform.position.z;
 
             if (platZ < player.transform.position.z + 3 && platZ > player.transform.position.z - 3)
@@ -69,7 +68,6 @@ public class OncomingPlatforms : MonoBehaviour {
 
     public static void ClearNext()
     {
-        Debug.Log("Platforms cleared");
         Array.Clear(sortedPlats, 0, 3);
         unsortedPlats.Clear();
     }

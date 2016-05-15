@@ -18,6 +18,8 @@ public class GroundCollision : MonoBehaviour {
 
         if (collider.tag == "Player")
         {
+            PlayerController.gameManager.PlaySound(5);
+
             GameObject particle = Instantiate(Resources.Load("Platformer/LavaBurnParticle") as GameObject);
             particle.transform.localScale = new Vector3(.7f, .7f, .7f);
             particle.transform.position = collider.transform.position;

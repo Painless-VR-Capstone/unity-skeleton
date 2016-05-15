@@ -18,9 +18,10 @@ public class SlowPickup : MonoBehaviour {
         if (collider.tag == "Player")
         {
             Debug.Log("Slow pickup");
+            PlayerController.gameManager.PlaySound(1);
             GameObject newParticle = (GameObject)Instantiate(Resources.Load("Platformer/SlowPickupParticle") as GameObject, this.transform.position, Quaternion.identity);
             Destroy(newParticle, 3);
-            PlatformMovement.SlowDown();
+            PlayerController.gameManager.slowTimes.Add(Time.time);
             PlatformFall.fallingGOs.Remove(this.gameObject);
             Destroy(this.gameObject);
             //Destroy(newParticles);

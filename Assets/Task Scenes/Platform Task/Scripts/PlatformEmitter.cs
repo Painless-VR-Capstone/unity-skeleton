@@ -54,8 +54,10 @@ public class PlatformEmitter : MonoBehaviour {
             //        TryPickupSpawn(10, slowPickup);
 
             //}
+            int min = (int)Mathf.Clamp(pathPlat.x - 1, 0, columnCount);
+            int max = (int)Mathf.Clamp(pathPlat.x + 2, 0, columnCount - 1);
+            col = rnd.Next(min, max);
 
-            col = rnd.Next((int)Mathf.Clamp(pathPlat.x - 1, 0, columnCount), (int)Mathf.Clamp(pathPlat.x + 1, 0, columnCount - 1));
             currRefPlat = Instantiate(platPrefab);
             plats[col, 0] = currRefPlat;
             currRefPlat.transform.SetParent(platContainer, false);
@@ -63,8 +65,8 @@ public class PlatformEmitter : MonoBehaviour {
             int zInterval = (columnCount / 2) - col;
             currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
 
-            if (!TryPickupSpawn(30, boostPickup))
-                TryPickupSpawn(10, slowPickup);
+            if (!TryPickupSpawn(40, boostPickup))
+                TryPickupSpawn(45, slowPickup);
 
 
             pathPlat.x = col;

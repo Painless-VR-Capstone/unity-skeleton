@@ -6,13 +6,26 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
     internal static GameObject player;
     internal static PlayerController playCtrl;
+    internal static PlatformMovement platMovement;
+
     public static bool playerIsAlive = false;
+    float timeAlive; 
     public static string playerObject;
     public GameObject humanPlayer, orbPlayer, robotPlayer;
     public static PlatformPresetModel presetModel;
+    TrailRenderer trail;
 
     public AudioSource audioSource;
-    public AudioClip testClip;
+    public List<AudioClip> audioClips = new List<AudioClip>();
+
+    public float boostPower = .07f;
+    public float slowPower = 5f;
+
+    public List<float> boostTimes = new List<float>();
+    public List<float> slowTimes = new List<float>();
+    internal static float startJumpTime;
+    internal static float startPlatSpeed;
+
     void OnEnable()
     {
         if (player == null)
@@ -25,7 +38,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    internal static void Init()
+    internal void Init()
     {
         GameManager gm = GameObject.Find("Manager").GetComponent<GameManager>();
         if (presetModel == null)
@@ -40,34 +53,43 @@ public class GameManager : MonoBehaviour {
             CameraColorShift.hue = presetModel.hue;
             gm.SetPlayerObject();
             gm.SpawnPlayer();
-        }
-        playerIsAlive = true;
 
+        }
+        timeAlive = 0f;
+        playerIsAlive = true;
+        gm.trail = player.GetComponent<TrailRenderer>();
         playCtrl = player.GetComponent<PlayerController>();
+        platMovement = GameObject.Find("MovingObjects").GetComponent<PlatformMovement>();
         startJumpTime = playCtrl.jumpTime;
+        startPlatSpeed = platMovement.speed;
     }
 
-    internal static float startJumpTime;
     // Update is called once per frame
     void Update () {
         if (Input.GetButtonDown("Submit"))
             RestartGame();
 
-        for (int i = 0; i < boostTimes.Count; i++)
+        if (player != null)
         {
-            if (boostTimes[i] + 3.5f < Time.time)
+            for (int i = 0; i < boostTimes.Count; i++)
             {
-                boostTimes.RemoveAt(i);
-                playCtrl.jumpTime += boostPower;
+                if (boostTimes[i] + 3f < Time.time)
+                    boostTimes.RemoveAt(i);
             }
+            for (int i = 0; i < slowTimes.Count; i++)
+            {
+                if (slowTimes[i] + 3.5f < Time.time)
+                    slowTimes.RemoveAt(i);
+            }
+
+
+
+            platMovement.speed = Mathf.Clamp(startPlatSpeed - (float)System.Math.Pow(slowTimes.Count, 2) * slowPower, 0, startPlatSpeed);
+            float boost = (float)System.Math.Pow(boostTimes.Count, 2) * boostPower;
+            trail.time = boostTimes.Count * .15f;
+            trail.startWidth = boostTimes.Count * .3f;
+            playCtrl.jumpTime = Mathf.Clamp(startJumpTime - boost, .1f, startJumpTime);
         }
-
-
-        if (boostTimes.Count == 0)
-            playCtrl.jumpTime = startJumpTime;
-
-
-        playCtrl.jumpTime = startJumpTime - Mathf.Clamp(boostTimes.Count * boostPower, .01f, 20f);
 
 	}
 
@@ -79,26 +101,21 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(Wait());
     }
 
-    static IEnumerator Wait()
+    public IEnumerator Wait()
     {
         yield return new WaitForSeconds(2);
-        GameManager.RestartGame();
+        RestartGame();
         Debug.Log("ROUTINE OVER");
     }
 
-    public static void RestartGame()
+    public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Init();
     }
 
-    float minJumpTime = .2f;
-    public float boostPower = .1f;
-    static List<float> boostTimes = new List<float>();
-    public static void BoostPlayer()
-    {
-        boostTimes.Add(Time.time);
-    }
+
+
 
     public void SpawnPlayer()
     {
@@ -129,8 +146,12 @@ public class GameManager : MonoBehaviour {
         //GameObject.Find("Manager").GetComponent<GameManager>().SpawnPlayer();
     }
 
-    void PlayJumpSound()
+    public void PlaySound(int clipIndex)
     {
-        if 
+        audioSource.PlayOneShot(audioClips[clipIndex]);
+
     }
+
+
+
 }

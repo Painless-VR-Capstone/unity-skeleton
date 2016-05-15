@@ -18,10 +18,12 @@ public class BoostPickup : MonoBehaviour {
         if (collider.tag == "Player")
         {
             Debug.Log("Boost pickup");
+            PlayerController.gameManager.PlaySound(3);
+
             GameObject newParticle = (GameObject)Instantiate(Resources.Load("Platformer/SlowPickupParticle") as GameObject, this.transform.position, Quaternion.identity);
             Destroy(newParticle, 3);
 
-            GameManager.BoostPlayer();
+            PlayerController.gameManager.boostTimes.Add(Time.time);
 
             PlatformFall.fallingGOs.Remove(this.gameObject);
             Destroy(this.gameObject);

@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 
         //Restart game if player falls
         if (transform.position.y < restartHeight)
-            GameManager.RestartGame();
+            gameManager.RestartGame();
     }
 	
 	void FixedUpdate () {
@@ -154,12 +154,11 @@ public class PlayerController : MonoBehaviour {
         {
             OncomingPlatforms.SortPlats();
 
-            Debug.Log("Player is grounded");
+            //Debug.Log("Player is grounded");
             transform.SetParent(collision.transform);
             transform.SetAsFirstSibling();
             isGrounded = true;
 
-            gameManager.audioSource.PlayOneShot(gameManager.testClip);
         } 
 
     }
