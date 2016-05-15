@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour {
     public static string playerObject;
     public GameObject humanPlayer, orbPlayer, robotPlayer;
     public static PlatformPresetModel presetModel;
+
+    public AudioSource audioSource;
+    public AudioClip testClip;
     void OnEnable()
     {
         if (player == null)
@@ -124,5 +127,10 @@ public class GameManager : MonoBehaviour {
 
         GameManager.playerObject = presetModel.playerObject.ToString();
         //GameObject.Find("Manager").GetComponent<GameManager>().SpawnPlayer();
+    }
+
+    void PlayJumpSound()
+    {
+        if 
     }
 }

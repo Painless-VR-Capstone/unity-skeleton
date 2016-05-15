@@ -158,6 +158,8 @@ public class PlayerController : MonoBehaviour {
             transform.SetParent(collision.transform);
             transform.SetAsFirstSibling();
             isGrounded = true;
+
+            gameManager.audioSource.PlayOneShot(gameManager.testClip);
         } 
 
     }

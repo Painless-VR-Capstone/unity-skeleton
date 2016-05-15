@@ -40,20 +40,33 @@ public class PlatformEmitter : MonoBehaviour {
             ShiftRowBack();
             int col = 0;
             System.Random rnd = new System.Random();
-            while (!CheckRowContinuity())
-            {
-                col = rnd.Next(0, columnCount);
-                currRefPlat = Instantiate(platPrefab);
-                plats[col, 0] = currRefPlat;
-                currRefPlat.transform.SetParent(platContainer, false);
-                currRefPlat.transform.position = transform.position;
-                int zInterval = (columnCount / 2) - col;
-                currRefPlat.transform.Translate(new Vector3(0f, 0f,platWidth * zInterval + (columnSpacing * zInterval)));
+            //while (!CheckRowContinuity())
+            //{
+            //    col = rnd.Next(0, columnCount);
+            //    currRefPlat = Instantiate(platPrefab);
+            //    plats[col, 0] = currRefPlat;
+            //    currRefPlat.transform.SetParent(platContainer, false);
+            //    currRefPlat.transform.position = transform.position;
+            //    int zInterval = (columnCount / 2) - col;
+            //    currRefPlat.transform.Translate(new Vector3(0f, 0f,platWidth * zInterval + (columnSpacing * zInterval)));
 
-                if (!TryPickupSpawn(30, boostPickup))
-                    TryPickupSpawn(10, slowPickup);
+            //    if (!TryPickupSpawn(30, boostPickup))
+            //        TryPickupSpawn(10, slowPickup);
 
-            }
+            //}
+
+            col = rnd.Next((int)Mathf.Clamp(pathPlat.x - 1, 0, columnCount), (int)Mathf.Clamp(pathPlat.x + 1, 0, columnCount - 1));
+            currRefPlat = Instantiate(platPrefab);
+            plats[col, 0] = currRefPlat;
+            currRefPlat.transform.SetParent(platContainer, false);
+            currRefPlat.transform.position = transform.position;
+            int zInterval = (columnCount / 2) - col;
+            currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
+
+            if (!TryPickupSpawn(30, boostPickup))
+                TryPickupSpawn(10, slowPickup);
+
+
             pathPlat.x = col;
         }
 
