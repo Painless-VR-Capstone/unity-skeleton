@@ -7,6 +7,8 @@ public class UIController : MonoBehaviour {
     public Text minDistToGoalText;
     private Color textStartColor;
     private float colorFlashTime;
+    public Text timeText;
+    public static float oldTime = 0;
 
     public GameObject player;
     public GameObject goal;
@@ -26,6 +28,8 @@ public class UIController : MonoBehaviour {
             //    Stats.minDistToGoal = dist;
             //}
         }
+
+
 
     }
 
@@ -50,6 +54,9 @@ public class UIController : MonoBehaviour {
                 distToGoalText.color = textStartColor;
             }
         }
+
+        
+        timeText.text = (((int)(Time.time - oldTime) / 60)) + ":" + ((int)(Time.time - oldTime) % 60);
 	}
 }
 

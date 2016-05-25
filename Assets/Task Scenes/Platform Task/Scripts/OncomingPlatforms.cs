@@ -25,7 +25,7 @@ public class OncomingPlatforms : MonoBehaviour {
     {
         if (collider.transform.tag == "Platform")
         {
-            
+
             //Debug.Log("Platform detected " + position.z);
             //for (int i = 0; i < platforms.Length; i++)
             //{
@@ -34,14 +34,9 @@ public class OncomingPlatforms : MonoBehaviour {
 
             //    }
             //}
-
+            
             unsortedPlats.Add(collider.gameObject);
-
-
-                
-
-
-
+               
         }
     }
 
@@ -55,47 +50,24 @@ public class OncomingPlatforms : MonoBehaviour {
 
             {
                 //Debug.Log("Front platform added");
-
                 sortedPlats[1] = plat;
             }
             else if (platZ < player.transform.position.z - 3)
             {
                 //Debug.Log("Right platform added");
-
                 sortedPlats[2] = plat;
             }
             else
             {
                 //Debug.Log("Left platform added");
-
                 sortedPlats[0] = plat;
             }
         }
 
-        //if (position.z < player.transform.position.z + 3.5 && position.z > player.transform.position.z - 3.5)
-
-        //{
-        //    Debug.Log("Front platform added");
-
-        //    platforms[1] = collider.gameObject;
-        //}
-        //else if (position.z < player.transform.position.z - 3.5)
-        //{
-        //    Debug.Log("Right platform added");
-
-        //    platforms[2] = collider.gameObject;
-        //}
-        //else
-        //{
-        //    Debug.Log("Left platform added");
-
-        //    platforms[0] = collider.gameObject;
-        //}
     }
 
     public static void ClearNext()
     {
-        Debug.Log("Platforms cleared");
         Array.Clear(sortedPlats, 0, 3);
         unsortedPlats.Clear();
     }

@@ -15,9 +15,17 @@ public class GroundCollision : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
+        float f = new System.Random().Next(0, 1);
+        if (f > .75)
+            PlayerController.gameManager.PlaySound(13, 20, collider.transform.position);
+        else
+            PlayerController.gameManager.PlaySound(14, 20, collider.transform.position);
+
 
         if (collider.tag == "Player")
         {
+            //PlayerController.gameManager.PlaySound(5);
+
             GameObject particle = Instantiate(Resources.Load("Platformer/LavaBurnParticle") as GameObject);
             particle.transform.localScale = new Vector3(.7f, .7f, .7f);
             particle.transform.position = collider.transform.position;

@@ -15,6 +15,7 @@ public class PlatformEmitter : MonoBehaviour {
 
     public int columnCount;
     public float columnSpacing, rowSpacing, platLength, platWidth;
+    public bool multiplePaths;
 
     GameObject currRefPlat; //Reference to plat in last created row
   
@@ -40,20 +41,40 @@ public class PlatformEmitter : MonoBehaviour {
             ShiftRowBack();
             int col = 0;
             System.Random rnd = new System.Random();
-            while (!CheckRowContinuity())
+            if (multiplePaths)
             {
-                col = rnd.Next(0, columnCount);
+                while (!CheckRowContinuity())
+                {
+                    col = rnd.Next(0, columnCount);
+                    currRefPlat = Instantiate(platPrefab);
+                    plats[col, 0] = currRefPlat;
+                    currRefPlat.transform.SetParent(platContainer, false);
+                    currRefPlat.transform.position = transform.position;
+                    int zInterval = (columnCount / 2) - col;
+                    currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
+
+                    if (!TryPickupSpawn(30, boostPickup))
+                        TryPickupSpawn(45, slowPickup);
+
+                }
+            }
+            else {
+                int min = (int)Mathf.Clamp(pathPlat.x - 1, 0, columnCount);
+                int max = (int)Mathf.Clamp(pathPlat.x + 2, 0, columnCount - 1);
+                col = rnd.Next(min, max);
+
                 currRefPlat = Instantiate(platPrefab);
                 plats[col, 0] = currRefPlat;
                 currRefPlat.transform.SetParent(platContainer, false);
                 currRefPlat.transform.position = transform.position;
                 int zInterval = (columnCount / 2) - col;
-                currRefPlat.transform.Translate(new Vector3(0f, 0f,platWidth * zInterval + (columnSpacing * zInterval)));
+                currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
 
-                if (!TryPickupSpawn(30, boostPickup))
-                    TryPickupSpawn(10, slowPickup);
-
+                if (!TryPickupSpawn(60, boostPickup))
+                    TryPickupSpawn(0, slowPickup);
             }
+
+
             pathPlat.x = col;
         }
 
