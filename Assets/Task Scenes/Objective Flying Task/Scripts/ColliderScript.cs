@@ -8,10 +8,15 @@ using System.Collections;
 
 public class ColliderScript : MonoBehaviour
 {
-    public GameObject playerCamera;
     public Text scoreText, timeText;
     private int score = 0;
     private float time = 100;
+
+    //Method for manager to call on start
+    public void Initialize(float nTime)
+    {
+        time = nTime;
+    }
 
     // Update is called once per frame
     void Update()

@@ -4,11 +4,11 @@ using System.Collections;
 public class CameraColorShift : MonoBehaviour {
     [Range(0,1)]
     public static float brightness = .5f, contrast = .5f, hue = .5f, saturation = .5f;
-    public ColorSuite colorSuite;
+    private ColorSuite colorSuite;
 
 	// Use this for initialization
 	void Start () {
-	    
+        colorSuite = gameObject.GetComponent<ColorSuite>();
 	}
 	
 	// Update is called once per frame
