@@ -31,17 +31,22 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        bool up = Input.GetButton("Up");
+        bool left = Input.GetButton("Left");
+        bool right = Input.GetButton("Right");
+
         float horz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
-        if ((horz > 0.01 || horz < -0.01 || vert > 0.01) && isGrounded)
+        if ((up || left || right) && isGrounded)
         {
+            gameManager.PlaySound(11, 5f, this.transform.position);
             startPos = transform.position;
             int platformIndex;
-            if (horz > 0)
+            if (right)
             {
                 platformIndex = 2;
             }
-            else if (horz < 0)
+            else if (left)
             {
                 platformIndex = 0;
             }
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Debug.Log("Jumping into space");
                 targetObj = null;
+                transform.SetParent(transform.parent.parent);
                 targetPos = new Vector3(transform.position.x + (18f - platSpeed * decreaseJumpBySpeed),
                     transform.position.y,
                     transform.position.z + (5 - (5 * platformIndex)));
@@ -139,7 +145,7 @@ public class PlayerController : MonoBehaviour {
         if (targetObj != null)
             targetPos = targetObj.transform.position;
 
-        height += verticalVelocity * Time.deltaTime;
+        height += verticalVelocity * Time.deltaTime * 1.2f;
         verticalVelocity = Mathf.Lerp(jumpPower, -jumpPower, curTime / jumpTime);
         Vector3 basePos = Vector3.Lerp(startPos, targetPos, curTime / jumpTime);
         Vector3 resultantPos = basePos + (Vector3.up * height);
@@ -153,7 +159,7 @@ public class PlayerController : MonoBehaviour {
         if (collision.transform.tag == "Platform")
         {
             OncomingPlatforms.SortPlats();
-
+            gameManager.PlaySound(10, 3, collision.transform.position);
             //Debug.Log("Player is grounded");
             transform.SetParent(collision.transform);
             transform.SetAsFirstSibling();

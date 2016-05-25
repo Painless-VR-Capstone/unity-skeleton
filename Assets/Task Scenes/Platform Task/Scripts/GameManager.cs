@@ -7,6 +7,12 @@ public class GameManager : MonoBehaviour {
     internal static GameObject player;
     internal static PlayerController playCtrl;
     internal static PlatformMovement platMovement;
+    internal static PlatformFall fallPoint;
+    internal static PlatformEmitter platEmitter;
+    int platMat;
+    int borderMat;
+    int groundMat;
+    int towerMat;
 
     public static bool playerIsAlive = false;
     float timeAlive; 
@@ -17,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
     public AudioSource audioSource;
     public List<AudioClip> audioClips = new List<AudioClip>();
+    public List<Material> mats;
 
     public float boostPower = .07f;
     public float slowPower = 5f;
@@ -25,6 +32,9 @@ public class GameManager : MonoBehaviour {
     public List<float> slowTimes = new List<float>();
     internal static float startJumpTime;
     internal static float startPlatSpeed;
+    internal static float startFallSpeed;
+    internal static float startDecJumpSpeed;
+
 
     void OnEnable()
     {
@@ -41,6 +51,10 @@ public class GameManager : MonoBehaviour {
     internal void Init()
     {
         GameManager gm = GameObject.Find("Manager").GetComponent<GameManager>();
+        platMovement = GameObject.Find("MovingObjects").GetComponent<PlatformMovement>();
+        platEmitter = GameObject.Find("PlatformEmitter").GetComponent<PlatformEmitter>();
+        fallPoint = GameObject.Find("FallPoint").GetComponent<PlatformFall>();
+
         if (presetModel == null)
         {
             gm.SpawnPlayer();
@@ -51,6 +65,20 @@ public class GameManager : MonoBehaviour {
             CameraColorShift.contrast = presetModel.contrast;
             CameraColorShift.saturation = presetModel.saturation;
             CameraColorShift.hue = presetModel.hue;
+            platEmitter.columnCount = presetModel.platStreamWidth;
+            platEmitter.multiplePaths = presetModel.multiplePaths;
+            platMovement.speed = presetModel.platSpeed;
+            if (presetModel.textures == 0)
+            {
+                borderMat = 3; groundMat = 11; towerMat = 1; platMat = 8;
+            } else if (presetModel.textures == 1)
+            {
+                borderMat = 4; groundMat = 6; towerMat = 9; platMat = 3;
+            } else
+            {
+                borderMat = 2; groundMat = 7; towerMat = 8; platMat = 0;
+            }
+            SetMaterials();
             gm.SetPlayerObject();
             gm.SpawnPlayer();
 
@@ -59,9 +87,42 @@ public class GameManager : MonoBehaviour {
         playerIsAlive = true;
         gm.trail = player.GetComponent<TrailRenderer>();
         playCtrl = player.GetComponent<PlayerController>();
-        platMovement = GameObject.Find("MovingObjects").GetComponent<PlatformMovement>();
         startJumpTime = playCtrl.jumpTime;
         startPlatSpeed = platMovement.speed;
+        startFallSpeed = fallPoint.fallSpeed;
+        startDecJumpSpeed = playCtrl.decreaseJumpBySpeed;
+        playCtrl.decreaseJumpBySpeed = 1 + (startPlatSpeed * .02f);
+    }
+
+    void SetMaterials()
+    {
+        GameObject[] borders = GameObject.FindGameObjectsWithTag("Border");
+        GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
+        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
+        GameObject[] plats = GameObject.FindGameObjectsWithTag("Platform");
+
+
+        foreach (GameObject gm in borders)
+        {
+            gm.GetComponent<Renderer>().material = mats[borderMat];
+        }
+        foreach (GameObject gm in grounds)
+        {
+            gm.GetComponent<Renderer>().material = mats[groundMat];
+
+        }
+        foreach (GameObject gm in towers)
+        {
+            gm.GetComponent<Renderer>().material = mats[towerMat];
+
+        }
+        foreach (GameObject gm in plats)
+        {
+            gm.GetComponent<Renderer>().material = mats[platMat];
+
+        }
+
+
     }
 
     // Update is called once per frame
@@ -82,13 +143,14 @@ public class GameManager : MonoBehaviour {
                     slowTimes.RemoveAt(i);
             }
 
-
-
-            platMovement.speed = Mathf.Clamp(startPlatSpeed - (float)System.Math.Pow(slowTimes.Count, 2) * slowPower, 0, startPlatSpeed);
+            float newPlatSpeed = Mathf.Clamp(startPlatSpeed - (float)System.Math.Pow(slowTimes.Count, 2) * slowPower, 0, startPlatSpeed);
+            fallPoint.fallSpeed = (newPlatSpeed / startPlatSpeed) * startFallSpeed;
+            platMovement.speed = newPlatSpeed;
             float boost = (float)System.Math.Pow(boostTimes.Count, 2) * boostPower;
+            playCtrl.decreaseJumpBySpeed = (startDecJumpSpeed - boost * .25f);
             trail.time = boostTimes.Count * .15f;
             trail.startWidth = boostTimes.Count * .3f;
-            playCtrl.jumpTime = Mathf.Clamp(startJumpTime - boost, .1f, startJumpTime);
+            playCtrl.jumpTime = Mathf.Clamp(startJumpTime - boost, .08f, startJumpTime);
         }
 
 	}
@@ -111,6 +173,7 @@ public class GameManager : MonoBehaviour {
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        UIController.oldTime = Time.time;
         Init();
     }
 
@@ -131,7 +194,7 @@ public class GameManager : MonoBehaviour {
                 player.transform.SetParent(parent, false);
                 break;
             default:
-                player = Instantiate(humanPlayer);
+                player = Instantiate(orbPlayer);
                 player.transform.SetParent(parent, false);
                 break;
         }
@@ -144,6 +207,17 @@ public class GameManager : MonoBehaviour {
 
         GameManager.playerObject = presetModel.playerObject.ToString();
         //GameObject.Find("Manager").GetComponent<GameManager>().SpawnPlayer();
+    }
+
+    public void PlaySound(int clipIndex, float vol, Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(audioClips[clipIndex], position, vol);
+    }
+
+    public void PlaySound(int clipIndex, float vol)
+    {
+        audioSource.PlayOneShot(audioClips[clipIndex], vol);
+
     }
 
     public void PlaySound(int clipIndex)

@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour {
     private Color textStartColor;
     private float colorFlashTime;
     public Text timeText;
+    public static float oldTime = 0;
 
     public GameObject player;
     public GameObject goal;
@@ -55,7 +56,7 @@ public class UIController : MonoBehaviour {
         }
 
         
-        timeText.text = ((int)Time.time / 60) + ":" + (int)Time.time % 60;
+        timeText.text = (((int)(Time.time - oldTime) / 60)) + ":" + ((int)(Time.time - oldTime) % 60);
 	}
 }
 
