@@ -20,6 +20,7 @@ public class PlatformEmitter : MonoBehaviour
 
     GameObject currRefPlat; //Reference to plat in last created row
 
+    float startY;
 
     // Use this for initialization
     void Start()
@@ -64,18 +65,22 @@ public class PlatformEmitter : MonoBehaviour
 
 
                 }
+                currRefPlat.transform.Translate(new Vector3(0f, plats[col, 1].transform.position.y + 10f));
+
             }
             else {
                 int min = (int)Mathf.Clamp(pathPlat.x - 1, 0, columnCount);
                 int max = (int)Mathf.Clamp(pathPlat.x + 2, 0, columnCount - 1);
                 col = rnd.Next(min, max);
 
+                float oldPlatY = currRefPlat.transform.position.y;
                 currRefPlat = Instantiate(platPrefab);
                 plats[col, 0] = currRefPlat;
                 currRefPlat.transform.SetParent(platContainer, false);
                 currRefPlat.transform.position = transform.position;
                 int zInterval = (columnCount / 2) - col;
                 currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
+                //currRefPlat.transform.Translate(new Vector3(0f, ChooseVert(oldPlatY)));
 
                 if (!TryPickupSpawn(25, boostPickup))
                     TryPickupSpawn(35, slowPickup);
@@ -86,6 +91,23 @@ public class PlatformEmitter : MonoBehaviour
         }
 
 
+    }
+
+    float ChooseVert(float oldY)
+    {
+        float y = oldY;
+        int result = rnd.Next(0, 101);
+        if (result < 25)
+        {
+            Debug.Log("Stuff");
+            int upDown = rnd.Next(0, 101);
+            if (upDown > 50)
+                oldY -= 20;
+            else
+                oldY -= 1;
+        }
+
+        return y;
     }
 
     //Chance should be 0-100 out of 100
@@ -157,5 +179,7 @@ public class PlatformEmitter : MonoBehaviour
 
         pathPlat = new Vector2(columnCount / 2, 0);
         plats[columnCount / 2, 0] = currRefPlat; //Assigns plat to mid position in array
+
+        startY = currRefPlat.transform.position.y;
     }
 }
