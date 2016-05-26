@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlatformEmitter : MonoBehaviour {
+public class PlatformEmitter : MonoBehaviour
+{
     //plat = platform
     public GameObject platPrefab;
     public GameObject slowPickup;
@@ -18,10 +19,11 @@ public class PlatformEmitter : MonoBehaviour {
     public bool multiplePaths;
 
     GameObject currRefPlat; //Reference to plat in last created row
-  
+
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         plats = new GameObject[columnCount, 2];
         platContainer = GameObject.Find("Platforms").transform;
         pickupContainer = GameObject.Find("Pickups").transform;
@@ -30,17 +32,18 @@ public class PlatformEmitter : MonoBehaviour {
         platWidth = platPrefab.transform.lossyScale.z;
 
         SpawnFirstRow();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    System.Random rnd = new System.Random();
+    // Update is called once per frame
+    void Update()
+    {
 
 
         if (currRefPlat.transform.position.x < transform.position.x - platLength - rowSpacing) //Time for new row
         {
             ShiftRowBack();
             int col = 0;
-            System.Random rnd = new System.Random();
             if (multiplePaths)
             {
                 while (!CheckRowContinuity())
@@ -54,7 +57,11 @@ public class PlatformEmitter : MonoBehaviour {
                     currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
 
                     if (!TryPickupSpawn(30, boostPickup))
-                        TryPickupSpawn(45, slowPickup);
+                    {
+                        TryPickupSpawn(20, slowPickup);
+                    }
+
+
 
                 }
             }
@@ -70,8 +77,8 @@ public class PlatformEmitter : MonoBehaviour {
                 int zInterval = (columnCount / 2) - col;
                 currRefPlat.transform.Translate(new Vector3(0f, 0f, platWidth * zInterval + (columnSpacing * zInterval)));
 
-                if (!TryPickupSpawn(60, boostPickup))
-                    TryPickupSpawn(0, slowPickup);
+                if (!TryPickupSpawn(25, boostPickup))
+                    TryPickupSpawn(35, slowPickup);
             }
 
 
@@ -79,14 +86,12 @@ public class PlatformEmitter : MonoBehaviour {
         }
 
 
-	}
+    }
 
     //Chance should be 0-100 out of 100
     bool TryPickupSpawn(int chance, GameObject pickup)
     {
-        System.Random rnd = new System.Random();
         int result = rnd.Next(0, 101);
-
         if (chance > result)
         {
             GameObject newPickup = Instantiate(pickup);
@@ -110,14 +115,16 @@ public class PlatformEmitter : MonoBehaviour {
 
                     return true;
                 }
-            } else if (i == columnCount - 1)
+            }
+            else if (i == columnCount - 1)
             {
                 if (plats[i, 1] != null && pathPlat.x == i &&
                    (plats[i, 0] != null || plats[i - 1, 0] != null))
                 {
                     return true;
                 }
-            } else
+            }
+            else
             {
                 if (plats[i, 1] != null && pathPlat.x == i &&
                    (plats[i, 0] != null || plats[i - 1, 0] != null || plats[i + 1, 0] != null))
@@ -126,7 +133,7 @@ public class PlatformEmitter : MonoBehaviour {
                 }
             }
 
-            
+
         }
         return false;
     }

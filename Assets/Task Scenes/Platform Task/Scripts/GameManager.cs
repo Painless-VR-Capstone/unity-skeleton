@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour {
             playCtrl.decreaseJumpBySpeed = (startDecJumpSpeed - boost * .25f);
             trail.time = boostTimes.Count * .15f;
             trail.startWidth = boostTimes.Count * .3f;
-            playCtrl.jumpTime = Mathf.Clamp(startJumpTime - boost, .08f, startJumpTime);
+            playCtrl.jumpTime = Mathf.Clamp(startJumpTime - boost, .11f, startJumpTime);
         }
 
 	}
