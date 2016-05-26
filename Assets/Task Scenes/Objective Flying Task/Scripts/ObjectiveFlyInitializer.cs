@@ -19,10 +19,14 @@ public class ObjectiveFlyInitializer : SceneInitializer {
             CameraColorShift.contrast = presetModel.contrast;
             CameraColorShift.saturation = presetModel.saturation;
             CameraColorShift.hue = presetModel.hue;
-
-        }
-        else
-        {
+            RenderSettings.fogDensity = .02f * presetModel.fogDistance;
+            if (presetModel.fogExists)
+                RenderSettings.fogDensity = 0;
+            hazardColor = presetModel.hazardColor;
+            uiColor = presetModel.enemyColor;
+            playerColor = presetModel.playerColor;
+            objectiveColor = presetModel.objectiveColor;
+        } else {
             Debug.Log("No JSON to initialize");
         }
 
@@ -40,12 +44,6 @@ public class ObjectiveFlyInitializer : SceneInitializer {
                 //cameraVR.enabled = true;
                 break;
         }
-        
-
-        hazardColor = Color.blue;
-        playerColor = Color.magenta;
-        objectiveColor = Color.green;
-        uiColor = Color.white;
         sphereObject.SetActive(true);
         gameMechanics.Initialize(32);
     }

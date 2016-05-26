@@ -9,19 +9,20 @@ public class SetMaterialOnStart : MonoBehaviour {
     
     void Start()
     {
+        ObjectiveFlyInitializer initializer = GameObject.Find("Manager").GetComponent<ObjectiveFlyInitializer>();
         switch (colorNumber)
         {
             case 0:
-                newMaterialColor = GameObject.Find("Manager").GetComponent<ObjectiveFlyInitializer>().hazardColor;
+                newMaterialColor = initializer.hazardColor;
                 break;
             case 1:
-                newMaterialColor = GameObject.Find("Manager").GetComponent<ObjectiveFlyInitializer>().playerColor;
+                newMaterialColor = initializer.playerColor;
                 break;
             case 2:
-                newMaterialColor = GameObject.Find("Manager").GetComponent<ObjectiveFlyInitializer>().objectiveColor;
+                newMaterialColor = initializer.objectiveColor;
                 break;
             case 3:
-                newMaterialColor = GameObject.Find("Manager").GetComponent<ObjectiveFlyInitializer>().uiColor;
+                newMaterialColor = initializer.uiColor;
                 break;
         }
         matRender = gameObject.GetComponent<Renderer>();

@@ -1,11 +1,14 @@
 
-{"task":3,
+{"task":2,
 "worldColor":{"r":0.0,"g":0.3,"b":0.2,"a":0.7},
-"saturation":0.2,"brightness":0.7,"hue":0.7,"contrast":0.8,
+"playerColor":{"r":0.0,"g":0.3,"b":0.2,"a":1},
+"hazardColor":{"r":0.2,"g":0.3,"b":0.6,"a":1},
+"worldColor":{"r":0.0,"g":0.3,"b":0.2,"a":1},
+"saturation":0.4,"brightness":0.5,"hue":0.7,"contrast":0.4,
 "musicPath":"desktop/5thconcerto.mp3", 
 "playerObject":2, 
 "jumpSpeed":0.5,
-"platSpeed":17,
+"platSpeed":18,
 "platStreamWidth":9,
 "multiplePaths":1,
-"textures":0}
+"textures":1}
